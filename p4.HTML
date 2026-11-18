@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-variant":"#d3e4fe","on-tertiary-fixed":"#002113","on-secondary-fixed":"#00174b","surface-container-lowest":"#ffffff","secondary":"#0051d5","primary-fixed":"#d1e4ff","on-secondary":"#ffffff","inverse-surface":"#213145","inverse-on-surface":"#eaf1ff","surface-container-low":"#eff4ff","on-secondary-container":"#fefcff","outline":"#74777e","primary":"#001428","on-primary":"#ffffff","surface-bright":"#f8f9ff","error":"#ba1a1a","error-container":"#ffdad6","outline-variant":"#c3c6ce","on-tertiary-fixed-variant":"#005236","surface-tint":"#49607c","on-primary-fixed":"#011d35","surface-dim":"#cbdbf5","on-background":"#0b1c30","primary-fixed-dim":"#b0c9e8","tertiary":"#00170c","tertiary-fixed":"#6ffbbe","surface":"#f8f9ff","surface-container-highest":"#d3e4fe","secondary-container":"#316bf3","secondary-fixed-dim":"#b4c5ff","on-error":"#ffffff","on-primary-container":"#7991af","primary-container":"#0f2942","surface-container-high":"#dce9ff","on-secondary-fixed-variant":"#003ea8","secondary-fixed":"#dbe1ff","on-tertiary-container":"#00a270","on-error-container":"#93000a","on-primary-fixed-variant":"#314863","background":"#f8f9ff","tertiary-fixed-dim":"#4edea3","surface-container":"#e5eeff","on-surface":"#0b1c30","tertiary-container":"#002e1d","inverse-primary":"#b0c9e8","on-surface-variant":"#43474d","on-tertiary":"#ffffff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-xs":"0.25rem","space-xl":"2.5rem","margin-mobile":"1rem","gutter":"1.5rem","space-lg":"1.5rem","space-sm":"0.5rem","gutter-mobile":"1rem","margin":"2rem","space-md":"1rem"},fontFamily:{"headline-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"]},fontSize:{"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-sm":["18px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"400"}],"display-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"display-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}]}}}}</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Voltar para a tela anterior" class="w-11 h-11 flex items-center justify-center rounded-lg text-primary hover:bg-surface-container transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back_ios_new</span></button><div class="flex items-center gap-2"><img alt="Projeto Esporte Dagaz Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnHMFEUdUVmRjfMIKsVPxX2mcIKs7eupASgcyMuWpVXYlRkR312TSvOswdJOxpNLvpdm_DXu44TGafWdpcpAHgCUA1XXsHnezYSABrVd9DpRK-7cLiLYgHTJ9gEKHIYTbRbTQ1wJG23Onielm2rEbGOVoxMWqEh5Hgl9pzbaFCw1boVlqKj9gpMbll5G42MKztHU6-bmDGcQmF9piGGi7O4u6jc-dApF1BoYKE9Zs"/><h1 class="font-headline-sm text-headline-sm text-primary tracking-tight truncate max-w-[190px]">Cadastro De Aluno</h1></div></div><div class="flex items-center gap-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBChBO9tG8PRhqI1ug191m9AREUAfREBjJoA_WvoDxQWji50XhMASMaLzu0MnMN5bBEPZnuY6XwqKxutBmFQu8B1LSq51YgtE_3XgeaF4fHrpximG3jvVJOZwbSuKMOgA1k2E79uvN3_4Cg3zn1GxaODsA8rx63Xw8GkCApwYaf8OIblvv_i6EB0MFCfdxUPMIT2kRyqUBcjpMkDt5BnD8VVLrahJ1rMoJNV0gw9BE"/></div></div></header><main class="flex flex-col relative w-full px-margin-mobile pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-8">
+<!-- Status Feedback Banner (Micro-interação acolhedora de progresso) -->
+<div class="mt-2 mb-4 bg-surface-container-low p-4 rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Etapa 3 de 4</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-tertiary-container text-tertiary-fixed-dim">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed mr-1"></span> 75% Completo
+          </span>
+</div>
+<p class="font-headline-sm text-headline-sm text-primary font-bold">Ficha Socioesportiva</p>
+</div>
+</div>
+<button class="w-9 h-9 flex items-center justify-center rounded-lg bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Informações e Ajuda" type="button">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+</div>
+<!-- Stepper de Navegação Fluida (Mobile horizontal scrollável com touch) -->
+<div class="w-full overflow-x-auto no-scrollbar py-1 mb-5">
+<div class="flex items-center min-w-[340px] justify-between px-1">
+<!-- Step 1: Concluído -->
+<button class="flex flex-col items-center gap-1.5 group focus:outline-none" onclick="goToStep(1)" type="button">
+<div class="w-9 h-9 rounded-full bg-tertiary-container text-tertiary-fixed flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Pessoais</span>
+</button>
+<div class="h-0.5 flex-1 bg-tertiary-fixed mx-2"></div>
+<!-- Step 2: Concluído -->
+<button class="flex flex-col items-center gap-1.5 group focus:outline-none" onclick="goToStep(2)" type="button">
+<div class="w-9 h-9 rounded-full bg-tertiary-container text-tertiary-fixed flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Escolar/NIS</span>
+</button>
+<div class="h-0.5 flex-1 bg-secondary mx-2"></div>
+<!-- Step 3: Ativo -->
+<button class="flex flex-col items-center gap-1.5 focus:outline-none" onclick="goToStep(3)" type="button">
+<div class="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md animate-pulse">
+<span class="material-symbols-outlined text-[18px]">medical_services</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-bold">Saúde</span>
+</button>
+<div class="h-0.5 flex-1 bg-surface-container-highest mx-2"></div>
+<!-- Step 4: Pendente -->
+<button class="flex flex-col items-center gap-1.5 focus:outline-none" onclick="goToStep(4)" type="button">
+<div class="w-9 h-9 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">sports_martial_arts</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Esportes</span>
+</button>
+</div>
+</div>
+<form class="flex flex-col gap-4" id="studentRegistrationForm" onsubmit="event.preventDefault();">
+<!-- SEÇÃO 1: DADOS PESSOAIS (Colapsável / Revisão de dados) -->
+<details class="group bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all duration-300">
+<summary class="flex items-center justify-between p-4 cursor-pointer list-none select-none bg-surface-container-low hover:bg-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container text-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">1. Dados Pessoais</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Revisar identificação básica do jovem</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-container text-tertiary-fixed-dim">Validado</span>
+<span class="material-symbols-outlined text-outline transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</div>
+</summary>
+<div class="p-4 space-y-3.5 bg-surface-container-lowest">
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-1">Nome Completo do Aluno *</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" placeholder="Nome sem abreviações" type="text" value="Gabriel Souza Ramos"/>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-1">Nascimento *</label>
+<input class="w-full px-3 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="birthdateInput" onchange="calculateAge(this.value)" type="date" value="2012-06-14"/>
+</div>
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-1">Idade Apurada</label>
+<div class="flex items-center h-[44px] px-3.5 rounded-lg bg-surface-container text-primary font-headline-sm text-headline-sm">
+<span id="calculatedAge">12</span> <span class="font-body-sm text-body-sm text-on-surface-variant">anos (Sub-13)</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-1">CPF do Aluno</label>
+<input class="w-full px-3 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary" placeholder="000.000.000-00" type="text" value="184.920.337-02"/>
+</div>
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-1">RG / Órgão</label>
+<input class="w-full px-3 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary" placeholder="Número e órgão" type="text" value="31.842.109-1 DETRAN/RJ"/>
+</div>
+</div>
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-1">Etnia (Classificação IBGE)</label>
+<div class="relative">
+<select class="w-full appearance-none px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary pr-10">
+<option selected="" value="parda">Parda</option>
+<option value="preta">Preta</option>
+<option value="branca">Branca</option>
+<option value="amarela">Amarela</option>
+<option value="indigena">Indígena</option>
+<option value="nao_declarado">Prefere não informar</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-outline">unfold_more</span>
+</div>
+</div>
+</div>
+</details>
+<!-- SEÇÃO 2: ESCOLARIDADE & NIS (Colapsável / Revisão) -->
+<details class="group bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all duration-300">
+<summary class="flex items-center justify-between p-4 cursor-pointer list-none select-none bg-surface-container-low hover:bg-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container text-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">school</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">2. Escolaridade &amp; NIS</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Vínculo institucional e proteção social</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-container text-tertiary-fixed-dim">Validado</span>
+<span class="material-symbols-outlined text-outline transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</div>
+</summary>
+<div class="p-4 space-y-3.5 bg-surface-container-lowest">
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-1">NIS (Número de Identificação Social)</label>
+<div class="relative">
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary pl-10" placeholder="000.0000.000-0" type="text" value="209.4318.990-4"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">pin</span>
+</div>
+</div>
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-1">Escola Atual *</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary" placeholder="Nome da instituição de ensino" type="text" value="E. M. Prefeito Waldir de Carvalho"/>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-1">Série / Ano</label>
+<div class="relative">
+<select class="w-full appearance-none px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary pr-8">
+<option value="7">7º Ano Fundamental</option>
+<option value="6">6º Ano Fundamental</option>
+<option value="8">8º Ano Fundamental</option>
+<option value="9">9º Ano Fundamental</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-outline text-[18px]">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-1">Turno Escolar</label>
+<div class="relative">
+<select class="w-full appearance-none px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary pr-8">
+<option selected="" value="tarde">Tarde</option>
+<option value="manha">Manhã</option>
+<option value="integral">Integral</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-outline text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</details>
+<!-- SEÇÃO 3: SAÚDE E CUIDADOS ESPECIAIS (Em Foco Ativo) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-md p-4 space-y-4">
+<div class="flex items-center justify-between pb-2">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[20px]">health_and_safety</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">3. Ficha de Saúde &amp; Cuidados</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Acolhimento clínico preventivo para práticas esportivas</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed">Em Edição</span>
+</div>
+<!-- Aviso Acolhedor de Confidencialidade e Respeito -->
+<div class="bg-surface-container-low p-3.5 rounded-xl flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px] flex-shrink-0 mt-0.5">verified_user</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Os dados clínicos são estritamente sigilosos e asseguram adaptação das cargas físicas, socorro ágil e segurança integral ao educando.
+        </p>
+</div>
+<!-- Pergunta 1: Deficiência -->
+<div class="p-3.5 rounded-xl bg-surface-container-low space-y-2.5">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">accessible_forward</span>
+            Possui deficiência ou PCD?
+          </label>
+<div class="flex items-center gap-3">
+<label class="inline-flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="w-4 h-4 text-secondary focus:ring-secondary" name="pcd_status" onchange="toggleConditionalField('pcd-detail', false)" type="radio" value="nao"/>
+<span class="font-body-md text-body-md text-on-surface">Não</span>
+</label>
+<label class="inline-flex items-center gap-1.5 cursor-pointer">
+<input class="w-4 h-4 text-secondary focus:ring-secondary" name="pcd_status" onchange="toggleConditionalField('pcd-detail', true)" type="radio" value="sim"/>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Sim</span>
+</label>
+</div>
+</div>
+<div class="hidden pt-2 transition-all" id="pcd-detail">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Qual deficiência? (Física, auditiva, visual, cognitiva ou múltipla)</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary" placeholder="Descreva as especificações e laudo se houver" type="text"/>
+</div>
+</div>
+<!-- Pergunta 2: Problema Crônico -->
+<div class="p-3.5 rounded-xl bg-surface-container-low space-y-2.5">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">cardiology</span>
+            Possui problema crônico de saúde?
+          </label>
+<div class="flex items-center gap-3">
+<label class="inline-flex items-center gap-1.5 cursor-pointer">
+<input class="w-4 h-4 text-secondary focus:ring-secondary" name="chronic_status" onchange="toggleConditionalField('chronic-detail', false)" type="radio" value="nao"/>
+<span class="font-body-md text-body-md text-on-surface">Não</span>
+</label>
+<label class="inline-flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="w-4 h-4 text-secondary focus:ring-secondary" name="chronic_status" onchange="toggleConditionalField('chronic-detail', true)" type="radio" value="sim"/>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Sim</span>
+</label>
+</div>
+</div>
+<div class="block pt-2 transition-all" id="chronic-detail">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Ex: Asma, bronquite, cardiopatia congênita, diabetes...</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary" type="text" value="Asma leve induzida por esforço em dias secos"/>
+</div>
+</div>
+<!-- Pergunta 3: Medicamento Controlado -->
+<div class="p-3.5 rounded-xl bg-surface-container-low space-y-2.5">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">pill</span>
+            Usa medicação contínua / controlada?
+          </label>
+<div class="flex items-center gap-3">
+<label class="inline-flex items-center gap-1.5 cursor-pointer">
+<input class="w-4 h-4 text-secondary focus:ring-secondary" name="med_status" onchange="toggleConditionalField('med-detail', false)" type="radio" value="nao"/>
+<span class="font-body-md text-body-md text-on-surface">Não</span>
+</label>
+<label class="inline-flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="w-4 h-4 text-secondary focus:ring-secondary" name="med_status" onchange="toggleConditionalField('med-detail', true)" type="radio" value="sim"/>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Sim</span>
+</label>
+</div>
+</div>
+<div class="block pt-2 transition-all" id="med-detail">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Nome da medicação, dosagem prescrita e horários</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary" type="text" value="Salbutamol spray 100mcg - apenas se houver crise respiratória"/>
+</div>
+</div>
+</div>
+<!-- SEÇÃO 4: SELEÇÃO DE MODALIDADES ESPORTIVAS -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-4 space-y-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">sports</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">4. Modalidades Esportivas</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Selecione as turmas pretendidas (máx. 3)</p>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-container text-tertiary-fixed font-bold" id="selectedCountBadge">3 Selecionadas</span>
+</div>
+<!-- Grade de Cards Selecionáveis -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+<!-- Modalidade 1: Capoeira (Marcada) -->
+<label class="sport-card cursor-pointer flex items-center justify-between p-3 rounded-xl bg-surface-container-low transition-all select-none">
+<input checked="" class="hidden" onchange="updateSportSelection(this)" type="checkbox"/>
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-primary text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[19px]">sports_martial_arts</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-primary font-bold">Capoeira</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manhã (Ter/Qui - 09h00)</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="check-box-indicator w-6 h-6 rounded-md bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="text-[10px] font-semibold text-tertiary-container">4 vagas</span>
+</div>
+</label>
+<!-- Modalidade 2: Treinamento Funcional (Desmarcada) -->
+<label class="sport-card cursor-pointer flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-all select-none">
+<input class="hidden" onchange="updateSportSelection(this)" type="checkbox"/>
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-on-surface flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[19px]">fitness_center</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-primary font-bold">Treino Funcional</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tarde (Seg/Sex - 16h30)</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="check-box-indicator w-6 h-6 rounded-md bg-surface-container-highest text-transparent flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="text-[10px] font-medium text-outline">8 vagas</span>
+</div>
+</label>
+<!-- Modalidade 3: Judô (Marcada) -->
+<label class="sport-card cursor-pointer flex items-center justify-between p-3 rounded-xl bg-surface-container-low transition-all select-none">
+<input checked="" class="hidden" onchange="updateSportSelection(this)" type="checkbox"/>
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-primary text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[19px]">sports_kabaddi</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-primary font-bold">Judô Socioesportivo</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tarde (Seg/Qua - 15h00)</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="check-box-indicator w-6 h-6 rounded-md bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="text-[10px] font-semibold text-tertiary-container">2 vagas</span>
+</div>
+</label>
+<!-- Modalidade 4: Basquete 3x3 (Desmarcada) -->
+<label class="sport-card cursor-pointer flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-all select-none">
+<input class="hidden" onchange="updateSportSelection(this)" type="checkbox"/>
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-on-surface flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[19px]">sports_basketball</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-primary font-bold">Basquete 3x3</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manhã (Qua/Sex - 10h15)</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="check-box-indicator w-6 h-6 rounded-md bg-surface-container-highest text-transparent flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="text-[10px] font-medium text-outline">Fila espera</span>
+</div>
+</label>
+<!-- Modalidade 5: Futsal (Marcada) -->
+<label class="sport-card cursor-pointer flex items-center justify-between p-3 rounded-xl bg-surface-container-low transition-all select-none">
+<input checked="" class="hidden" onchange="updateSportSelection(this)" type="checkbox"/>
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-primary text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[19px]">sports_soccer</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-primary font-bold">Futsal Formativo</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manhã (Sábados - 08h30)</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="check-box-indicator w-6 h-6 rounded-md bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="text-[10px] font-semibold text-tertiary-container">Última vaga!</span>
+</div>
+</label>
+<!-- Modalidade 6: Futevôlei (Desmarcada) -->
+<label class="sport-card cursor-pointer flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-all select-none">
+<input class="hidden" onchange="updateSportSelection(this)" type="checkbox"/>
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-on-surface flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[19px]">sports_volleyball</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-primary font-bold">Futevôlei Comunitário</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tarde (Sábados - 14h00)</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="check-box-indicator w-6 h-6 rounded-md bg-surface-container-highest text-transparent flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="text-[10px] font-medium text-outline">5 vagas</span>
+</div>
+</label>
+</div>
+</div>
+<!-- SEÇÃO 5: RESPONSÁVEL LEGAL VINCULADO -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-4 space-y-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">family_restroom</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">5. Vínculo do Responsável</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Representante legal para autorizações e termos</p>
+</div>
+</div>
+<button class="text-secondary font-label-md text-label-md flex items-center gap-1 hover:underline" type="button">
+<span class="material-symbols-outlined text-[16px]">person_add</span> Novo
+        </button>
+</div>
+<!-- Barra de Busca Rápida de Responsável -->
+<div class="relative">
+<input class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary transition-all" placeholder="Buscar responsável por CPF ou Nome..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">search</span>
+</div>
+<!-- Card do Responsável Selecionado -->
+<div class="p-3.5 rounded-xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover shadow-sm" data-alt="Fotografia de rosto amigável e acolhedora de uma mulher brasileira negra sorridente, mãe de família, iluminada de forma natural e acolhedora com tons amenos e calorosos" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpCrlbE2lOswC8StAOdsVmSUPpH5iKltfoB7uqyYc626NLZucAcB7ZBpFx1VFYBxSYgkRyun_FU6jT3NFI6WMBWmy5dS25gq2KEzNuwDk5PjBleD5Y3JBHjMpG3hUYzbMurin1GxErWMah4gJl6-PcUQ8gphi4v10JXosKi7oeCTDTYlk2Dnkx-q-pTeNoAjV6JHHoj_rDurhSK4rV1fPUwjbOXHYkrdVnXerI53Y"/>
+<div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] font-bold">verified</span>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-label-lg text-label-lg text-primary font-bold">Cláudia de Souza Ramos</h3>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary text-on-primary">Mãe</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">call</span> (24) 99214-5510 • CPF: ***.319.447-**
+            </p>
+</div>
+</div>
+<button class="w-9 h-9 rounded-lg bg-surface-container text-on-surface-variant hover:text-error flex items-center justify-center transition-colors" title="Trocar Responsável" type="button">
+<span class="material-symbols-outlined text-[18px]">swap_horiz</span>
+</button>
+</div>
+</div>
+<!-- BOTÕES DE NAVEGAÇÃO E AÇÃO FINAL -->
+<div class="pt-2 pb-6 space-y-3">
+<!-- Botão Primário de Finalização -->
+<button class="w-full h-13 py-3.5 px-6 rounded-xl bg-primary text-on-primary hover:bg-primary-container shadow-md flex items-center justify-between group transition-all active:scale-[0.99]" onclick="showSuccessModal()" type="button">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary-fixed text-[24px]">task_alt</span>
+<span class="font-label-lg text-label-lg font-bold tracking-wide">Finalizar Cadastro do Aluno</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-highest/20 px-2 py-1 rounded-lg">
+<span class="font-label-sm text-label-sm text-tertiary-fixed">Pronto</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</div>
+</button>
+<div class="grid grid-cols-2 gap-3">
+<!-- Voltar Etapa -->
+<button class="h-11 px-4 rounded-xl bg-surface-container text-primary font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-high transition-colors" onclick="goToStep(2)" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          Voltar Etapa
+        </button>
+<!-- Salvar Rascunho -->
+<button class="h-11 px-4 rounded-xl bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md flex items-center justify-center gap-2 shadow-sm hover:bg-surface-container-low transition-colors" onclick="saveDraftNotification()" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">bookmark_border</span>
+          Salvar Rascunho
+        </button>
+</div>
+</div>
+</form>
+<!-- Toast Notification Rascunho -->
+<div class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-4 py-2.5 rounded-full shadow-lg flex items-center gap-2.5 opacity-0 pointer-events-none transition-all duration-300 z-50" id="toastNotification">
+<span class="material-symbols-outlined text-tertiary-fixed text-[18px]">check_circle</span>
+<span class="font-body-sm text-body-sm font-medium">Rascunho salvo localmente com sucesso!</span>
+</div>
+<!-- Diálogo / Modal de Confirmação e Sucesso -->
+<div class="fixed inset-0 bg-primary/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" id="successModal">
+<div class="bg-surface-container-lowest w-full max-w-sm rounded-2xl p-6 shadow-2xl flex flex-col items-center text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
+<div class="w-16 h-16 rounded-full bg-tertiary-container text-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">celebration</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary font-bold">Matrícula Concluída!</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5">
+          Gabriel Souza Ramos foi cadastrado com sucesso nas turmas de Capoeira, Judô e Futsal.
+        </p>
+</div>
+<div class="w-full bg-surface-container-low p-3 rounded-xl text-left space-y-1">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Próximo Passo:</p>
+<p class="font-body-sm text-body-sm text-primary font-semibold">Declaração de frequência socioesportiva emitida pronta para assinatura da responsável.</p>
+</div>
+<div class="w-full flex flex-col gap-2 pt-1">
+<button class="w-full py-3 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold" onclick="closeSuccessModal()" type="button">
+          Ver Ficha do Aluno
+        </button>
+<button class="w-full py-2.5 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md" onclick="closeSuccessModal()" type="button">
+          Novo Cadastro
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function toggleConditionalField(elementId, show) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    if (show) {
+      el.classList.remove('hidden');
+      el.classList.add('block');
+    } else {
+      el.classList.add('hidden');
+      el.classList.remove('block');
+    }
+  }
+
+  function calculateAge(birthDateString) {
+    if (!birthDateString) return;
+    const today = new Date();
+    const birthDate = new Date(birthDateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    const ageEl = document.getElementById('calculatedAge');
+    if (ageEl) {
+      ageEl.innerText = Math.max(0, age);
+    }
+  }
+
+  function updateSportSelection(checkbox) {
+    const parentLabel = checkbox.closest('.sport-card');
+    const indicator = parentLabel.querySelector('.check-box-indicator');
+    
+    if (checkbox.checked) {
+      parentLabel.classList.remove('bg-surface-container-lowest', 'shadow-sm');
+      parentLabel.classList.add('bg-surface-container-low');
+      indicator.classList.remove('bg-surface-container-highest', 'text-transparent');
+      indicator.classList.add('bg-secondary', 'text-on-secondary');
+    } else {
+      parentLabel.classList.remove('bg-surface-container-low');
+      parentLabel.classList.add('bg-surface-container-lowest', 'shadow-sm');
+      indicator.classList.add('bg-surface-container-highest', 'text-transparent');
+      indicator.classList.remove('bg-secondary', 'text-on-secondary');
+    }
+
+    const allChecked = document.querySelectorAll('.sport-card input[type="checkbox"]:checked').length;
+    const badge = document.getElementById('selectedCountBadge');
+    if (badge) {
+      badge.textContent = `${allChecked} Selecionada${allChecked !== 1 ? 's' : ''}`;
+    }
+  }
+
+  function saveDraftNotification() {
+    const toast = document.getElementById('toastNotification');
+    if (!toast) return;
+    toast.classList.remove('opacity-0', 'pointer-events-none');
+    toast.classList.add('opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0', 'pointer-events-none');
+    }, 2800);
+  }
+
+  function showSuccessModal() {
+    const modal = document.getElementById('successModal');
+    if (modal) modal.classList.remove('hidden');
+  }
+
+  function closeSuccessModal() {
+    const modal = document.getElementById('successModal');
+    if (modal) modal.classList.add('hidden');
+  }
+
+  function goToStep(stepIndex) {
+    // Efeito suave de feedback ao trocar de etapa
+    const toast = document.getElementById('toastNotification');
+    if (toast) {
+      toast.querySelector('span:last-child').textContent = `Navegando para etapa ${stepIndex}...`;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 1200);
+    }
+  }
+</script></main></body></html>

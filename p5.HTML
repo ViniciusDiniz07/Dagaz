@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-variant":"#d3e4fe","on-tertiary-fixed":"#002113","on-secondary-fixed":"#00174b","surface-container-lowest":"#ffffff","secondary":"#0051d5","primary-fixed":"#d1e4ff","on-secondary":"#ffffff","inverse-surface":"#213145","inverse-on-surface":"#eaf1ff","surface-container-low":"#eff4ff","on-secondary-container":"#fefcff","outline":"#74777e","primary":"#001428","on-primary":"#ffffff","surface-bright":"#f8f9ff","error":"#ba1a1a","error-container":"#ffdad6","outline-variant":"#c3c6ce","on-tertiary-fixed-variant":"#005236","surface-tint":"#49607c","on-primary-fixed":"#011d35","surface-dim":"#cbdbf5","on-background":"#0b1c30","primary-fixed-dim":"#b0c9e8","tertiary":"#00170c","tertiary-fixed":"#6ffbbe","surface":"#f8f9ff","surface-container-highest":"#d3e4fe","secondary-container":"#316bf3","secondary-fixed-dim":"#b4c5ff","on-error":"#ffffff","on-primary-container":"#7991af","primary-container":"#0f2942","surface-container-high":"#dce9ff","on-secondary-fixed-variant":"#003ea8","secondary-fixed":"#dbe1ff","on-tertiary-container":"#00a270","on-error-container":"#93000a","on-primary-fixed-variant":"#314863","background":"#f8f9ff","tertiary-fixed-dim":"#4edea3","surface-container":"#e5eeff","on-surface":"#0b1c30","tertiary-container":"#002e1d","inverse-primary":"#b0c9e8","on-surface-variant":"#43474d","on-tertiary":"#ffffff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-xs":"0.25rem","space-xl":"2.5rem","margin-mobile":"1rem","gutter":"1.5rem","space-lg":"1.5rem","space-sm":"0.5rem","gutter-mobile":"1rem","margin":"2rem","space-md":"1rem"},fontFamily:{"headline-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"]},fontSize:{"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-sm":["18px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"400"}],"display-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"display-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}]}}}}</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Abrir menu lateral de navegação" class="w-11 h-11 flex items-center justify-center rounded-lg text-primary hover:bg-surface-container transition-colors" id="open-drawer-btn" onclick="document.getElementById('mobile-drawer').classList.remove('-translate-x-full');document.getElementById('drawer-backdrop').classList.remove('hidden');"><span class="material-symbols-outlined text-[24px]">menu</span></button><div class="flex items-center gap-2"><img alt="Projeto Esporte Dagaz Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnHMFEUdUVmRjfMIKsVPxX2mcIKs7eupASgcyMuWpVXYlRkR312TSvOswdJOxpNLvpdm_DXu44TGafWdpcpAHgCUA1XXsHnezYSABrVd9DpRK-7cLiLYgHTJ9gEKHIYTbRbTQ1wJG23Onielm2rEbGOVoxMWqEh5Hgl9pzbaFCw1boVlqKj9gpMbll5G42MKztHU6-bmDGcQmF9piGGi7O4u6jc-dApF1BoYKE9Zs"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-tight tracking-tight">Esporte Dagaz</span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium leading-none">Gestão Socioesportiva</span></div></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notificações do sistema" class="relative w-11 h-11 flex items-center justify-center rounded-lg text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="relative ml-1"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBChBO9tG8PRhqI1ug191m9AREUAfREBjJoA_WvoDxQWji50XhMASMaLzu0MnMN5bBEPZnuY6XwqKxutBmFQu8B1LSq51YgtE_3XgeaF4fHrpximG3jvVJOZwbSuKMOgA1k2E79uvN3_4Cg3zn1GxaODsA8rx63Xw8GkCApwYaf8OIblvv_i6EB0MFCfdxUPMIT2kRyqUBcjpMkDt5BnD8VVLrahJ1rMoJNV0gw9BE"/><span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-on-tertiary-container rounded-full ring-2 ring-surface"></span></div></div></div></header><div class="fixed inset-0 z-50 bg-primary-container/40 backdrop-blur-sm hidden transition-opacity duration-300" id="drawer-backdrop" onclick="document.getElementById('mobile-drawer').classList.add('-translate-x-full');this.classList.add('hidden');"></div><aside class="fixed top-0 left-0 z-50 h-full w-[290px] bg-surface-container-lowest shadow-[0_8px_24px_rgba(15,41,66,0.08)] transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col pt-safe pb-safe" id="mobile-drawer"><div class="p-space-md flex items-center justify-between bg-surface-container-low"><div class="flex items-center gap-space-sm"><img alt="Projeto Esporte Dagaz Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnHMFEUdUVmRjfMIKsVPxX2mcIKs7eupASgcyMuWpVXYlRkR312TSvOswdJOxpNLvpdm_DXu44TGafWdpcpAHgCUA1XXsHnezYSABrVd9DpRK-7cLiLYgHTJ9gEKHIYTbRbTQ1wJG23Onielm2rEbGOVoxMWqEh5Hgl9pzbaFCw1boVlqKj9gpMbll5G42MKztHU6-bmDGcQmF9piGGi7O4u6jc-dApF1BoYKE9Zs"/><span class="font-headline-sm text-headline-sm text-primary">Esporte Dagaz</span></div><button class="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" onclick="document.getElementById('mobile-drawer').classList.add('-translate-x-full');document.getElementById('drawer-backdrop').classList.add('hidden');"><span class="material-symbols-outlined text-[22px]">close</span></button></div><div class="px-space-md py-space-sm bg-surface-container-low flex items-center gap-3"><img alt="Profile" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBChBO9tG8PRhqI1ug191m9AREUAfREBjJoA_WvoDxQWji50XhMASMaLzu0MnMN5bBEPZnuY6XwqKxutBmFQu8B1LSq51YgtE_3XgeaF4fHrpximG3jvVJOZwbSuKMOgA1k2E79uvN3_4Cg3zn1GxaODsA8rx63Xw8GkCApwYaf8OIblvv_i6EB0MFCfdxUPMIT2kRyqUBcjpMkDt5BnD8VVLrahJ1rMoJNV0gw9BE"/><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface truncate">Administradora Dagaz</span><span class="font-body-sm text-body-sm text-on-surface-variant truncate">admin@esportedagaz.org.br</span></div></div><div class="flex-1 overflow-y-auto py-space-sm px-space-xs"><div class="px-space-sm py-1"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Operacional</span></div><nav class="space-y-0.5"><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px] text-secondary">dashboard</span><span class="font-body-md text-body-md font-medium">Dashboard (Início)</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="alunos" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">groups</span><span class="font-body-md text-body-md">Alunos</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="responsaveis" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">escalator_warning</span><span class="font-body-md text-body-md">Responsáveis</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="matriculas" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">how_to_reg</span><span class="font-body-md text-body-md">Matrículas</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="modalidades-esportivas" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">sports_soccer</span><span class="font-body-md text-body-md">Modalidades esportivas</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="digitalizacao-de-fichas-ia" href="#"><span class="material-symbols-outlined text-[20px] text-secondary">document_scanner</span><span class="font-body-md text-body-md">Digitalização de fichas (IA)</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">insights</span><span class="font-body-md text-body-md">Relatórios</span></a></nav><div class="px-space-sm py-1 mt-3"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Governança</span></div><nav class="space-y-0.5"><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="administradores" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">admin_panel_settings</span><span class="font-body-md text-body-md">Administradores</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="historico-de-alteracoes" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">history</span><span class="font-body-md text-body-md">Histórico de alterações</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">settings</span><span class="font-body-md text-body-md">Configurações</span></a></nav></div><div class="p-space-sm bg-surface-container-low"><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-error hover:bg-error-container/30 transition-colors" data-path="sair" href="#"><span class="material-symbols-outlined text-[20px]">logout</span><span class="font-label-lg text-label-lg font-semibold">Sair do sistema</span></a></div></aside><main class="flex flex-col relative w-full px-margin-mobile pt-16 pb-28 bg-surface min-h-screen"><div class="flex flex-col w-full pb-10 space-y-space-md">
+<!-- 1. Banner Explicativo Superior com Design Humano & Confiável -->
+<section class="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-secondary/5 rounded-full pointer-events-none"></div>
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary text-on-secondary flex items-center justify-center shrink-0 shadow-md">
+<span class="material-symbols-outlined text-[24px]">auto_awesome</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<h1 class="font-headline-sm text-headline-sm text-primary">Digitalização Assistida por IA</h1>
+<span class="bg-surface-container-highest text-secondary font-label-sm text-label-sm px-2 py-0.5 rounded-full">OCR V2.4</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Envie a foto ou PDF da ficha impressa preenchida à mão. Nossa IA lê os campos e apresenta tudo organizado para sua conferência antes de salvar no sistema.
+        </p>
+<!-- Alerta Amigável & Empático de Governança -->
+<div class="mt-3 flex items-center gap-2 bg-surface-container-lowest/80 p-2.5 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-on-tertiary-container shrink-0">verified_user</span>
+<span class="font-label-sm text-label-sm text-on-surface">
+<strong>Controle total:</strong> Nenhum dado é salvo automaticamente. Você sempre tem a palavra final antes do registro.
+          </span>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Seção de Upload / Captura Móvel & Ficha Carregada -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-secondary">document_scanner</span>
+<h2 class="font-label-lg text-label-lg text-primary uppercase tracking-wide">Captura de Documento</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-tertiary-container bg-surface-container-low px-2 py-0.5 rounded-full font-medium">1 arquivo pronto</span>
+</div>
+<!-- Botões de Ação Direta Mobile -->
+<div class="grid grid-cols-2 gap-2.5">
+<button class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-[0.98] transition-all text-primary text-center" type="button">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px]">photo_camera</span>
+</div>
+<span class="font-label-sm text-label-sm">Tirar Foto da Ficha</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-[0.98] transition-all text-primary text-center" type="button">
+<div class="w-10 h-10 rounded-full bg-surface-container text-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px]">file_open</span>
+</div>
+<span class="font-label-sm text-label-sm">Galeria ou PDF</span>
+</button>
+</div>
+<!-- Card de Demonstração do Arquivo Processado -->
+<div class="bg-surface-container-low rounded-xl p-3 flex items-center gap-3">
+<div class="relative w-14 h-16 rounded-lg overflow-hidden shrink-0 shadow-sm bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close-up vertical photograph of a handwritten paper sports registration form with stamped Dagaz logo, ink fields filled with student data and checked boxes on desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhy6xavt1JYzrA7ji0OLfdxdTyesmsljjQaGrSZbVej7jdU9FRYlJ1HcWzugWrzQgG_EjL1q0ZGL90nFc1vVYGzcWl21AnOzMXmoNAEYDQ3ilxMKPOv-uQtG6jn1rgygyZx-Ezf1JHjvLK0Dw0cx7JSu0I6sHYQCLvP7WSiNvlYLtbS98yLKjX4skByNAdkszKFJiiCKc4RLV3MY8WHehYtGHEacnI7949hiLfxEM"/>
+<div class="absolute inset-0 bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-on-primary">check_circle</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<p class="font-label-md text-label-md text-primary truncate" title="ficha_inscricao_felipe_santos_2025.jpg">
+            ficha_inscricao_felipe_santos_2025.jpg
+          </p>
+<span class="text-[10px] text-outline font-medium shrink-0">1.8 MB</span>
+</div>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+<span class="font-label-sm text-[11px] text-on-tertiary-container font-semibold">Leitura OCR Concluída: 96% confiança</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 mt-1.5 overflow-hidden">
+<div class="bg-secondary h-1.5 rounded-full" style="width: 96%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Visualizador Interativo e Conferência de Dados Lado a Lado / Mobile Accordion -->
+<section class="space-y-3">
+<!-- Abas / Chaveadores de Visualização Mobile -->
+<div class="flex bg-surface-container-low p-1 rounded-xl gap-1">
+<button class="flex-1 py-2 px-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5 bg-surface-container-lowest text-primary shadow-sm transition-all" id="tab-data-btn" onclick="switchScanTab('data')">
+<span class="material-symbols-outlined text-[18px] text-secondary">fact_check</span>
+        Dados Extraídos (10)
+      </button>
+<button class="flex-1 py-2 px-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5 text-on-surface-variant hover:text-primary transition-all" id="tab-doc-btn" onclick="switchScanTab('doc')">
+<span class="material-symbols-outlined text-[18px]">image</span>
+        Ver Ficha Original
+      </button>
+</div>
+<!-- Visualizador da Foto Original (Com Opção de Zoom Interativo) -->
+<div class="hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-3" id="panel-doc-preview">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Documento Digitalizado</span>
+<div class="flex items-center gap-1">
+<button aria-label="Aumentar zoom" class="w-8 h-8 rounded-lg bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-primary" onclick="adjustDocZoom(0.1)" type="button">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span>
+</button>
+<button aria-label="Diminuir zoom" class="w-8 h-8 rounded-lg bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-primary" onclick="adjustDocZoom(-0.1)" type="button">
+<span class="material-symbols-outlined text-[18px]">zoom_out</span>
+</button>
+<button aria-label="Resetar zoom" class="w-8 h-8 rounded-lg bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-primary" onclick="resetDocZoom()" type="button">
+<span class="material-symbols-outlined text-[18px]">fit_screen</span>
+</button>
+</div>
+</div>
+<div class="relative w-full h-80 rounded-xl overflow-hidden bg-primary/5 flex items-center justify-center select-none cursor-grab active:cursor-grabbing">
+<div class="w-full h-full flex items-center justify-center transition-transform duration-200" id="zoomable-wrapper">
+<img class="max-w-full max-h-full object-contain shadow-md rounded" data-alt="Detailed top-down photo of official printed and signed Dagaz socio-sports youth application form, ballpoint pen writing, health checkmarks, clear registration details" id="doc-preview-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT7DuqWat7sfigyNprau6OlYjsqdYRvtHL1Uj4TfRKcVZz4wRqGIAEQbq8AeENaMUGeLt7B-3zZOWs-LvTxDd1jVrdjqeyMTqO0AxM0L2fy9DhEze7y27tCGRdCO71n7XmZF6e3GOZzEgXDyjesRex0XHGxL-U7wWgY0thQH3ZDW-gWe80WsiF8Ih1kYOel2bA1uja9Z-avwtclwcwDxaRRmbJVauydDonJmLSLHE"/>
+</div>
+<div class="absolute bottom-2 left-2 bg-surface-container-lowest/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-medium text-primary shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-secondary">crop_free</span>
+          Arraste para navegar pelo zoom
+        </div>
+</div>
+</div>
+<!-- Painel de Campos Extraídos e Editáveis -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-4" id="panel-data-extracted">
+<div class="flex items-center justify-between pb-1">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary">Conferência dos Campos</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Toque nos campos para ajustar eventuais grafias</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-tertiary-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+          Conferido
+        </span>
+</div>
+<form class="space-y-3.5" id="ocr-review-form">
+<!-- Nome do Aluno -->
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Nome Completo do Aluno</label>
+<span class="font-label-sm text-[10px] text-on-tertiary-container bg-surface-container-low px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">verified</span> 99% precisão
+            </span>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-lg focus:bg-surface-container-lowest focus:outline-none transition-all pr-9 font-medium" name="student_name" type="text" value="Felipe dos Santos Rocha"/>
+<span class="material-symbols-outlined absolute right-2.5 top-3 text-[18px] text-on-tertiary-container pointer-events-none">edit</span>
+</div>
+</div>
+<!-- Nascimento & Idade Calculada -->
+<div class="grid grid-cols-2 gap-2.5">
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Nascimento</label>
+<span class="text-[10px] text-on-tertiary-container font-semibold">97%</span>
+</div>
+<input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-lg focus:bg-surface-container-lowest focus:outline-none transition-all font-medium" name="birth_date" type="text" value="14/05/2012"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-outline uppercase font-bold tracking-wider">Idade Calculada</label>
+<div class="w-full bg-surface-container px-3.5 py-2.5 rounded-lg font-body-md text-body-md font-semibold text-secondary flex items-center justify-between">
+<span>12 anos</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">cake</span>
+</div>
+</div>
+</div>
+<!-- CPF & RG -->
+<div class="grid grid-cols-2 gap-2.5">
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">CPF do Aluno</label>
+<span class="text-[10px] text-on-tertiary-container font-semibold">94%</span>
+</div>
+<input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-lg focus:bg-surface-container-lowest focus:outline-none transition-all font-medium" name="student_cpf" type="text" value="145.892.307-44"/>
+</div>
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">RG / Órgão</label>
+<span class="text-[10px] text-on-tertiary-container font-semibold">91%</span>
+</div>
+<input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-lg focus:bg-surface-container-lowest focus:outline-none transition-all font-medium" name="student_rg" type="text" value="31.849.201-8 DETRAN-RJ"/>
+</div>
+</div>
+<!-- NIS do Benefício Social -->
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Número de Identificação Social (NIS)</label>
+<span class="font-label-sm text-[10px] text-secondary bg-surface-container-low px-2 py-0.5 rounded-full font-semibold">CadÚnico</span>
+</div>
+<input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-lg focus:bg-surface-container-lowest focus:outline-none transition-all font-medium" name="student_nis" type="text" value="209.431.882-90"/>
+</div>
+<!-- Responsável e Vínculo -->
+<div class="p-3 bg-surface-container-low rounded-xl space-y-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-secondary">family_restroom</span>
+<span class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider">Dados do Responsável</span>
+</div>
+<span class="font-label-sm text-[11px] text-secondary bg-surface-container px-2 py-0.5 rounded-md font-semibold">Mãe</span>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-[11px] text-on-surface-variant font-medium">Nome do Responsável Legal</label>
+<input class="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-3 py-2 rounded-lg focus:outline-none font-medium" name="guardian_name" type="text" value="Mariana dos Santos Rocha"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-[11px] text-on-surface-variant font-medium">WhatsApp / Telefone de Contato</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-3 py-2 rounded-lg focus:outline-none font-medium pl-8" name="guardian_phone" type="text" value="(24) 99842-1102"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-[16px] text-on-tertiary-container">call</span>
+</div>
+</div>
+</div>
+<!-- Endereço Residencial -->
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Endereço Residencial</label>
+<span class="font-label-sm text-[10px] text-on-tertiary-container bg-surface-container-low px-2 py-0.5 rounded-full font-semibold">98% precisão</span>
+</div>
+<textarea class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-3.5 py-2 rounded-lg focus:bg-surface-container-lowest focus:outline-none transition-all font-medium resize-none leading-snug" name="address" rows="2">Rua Projetada B, 45 - Bairro Santo Agostinho, Volta Redonda/RJ</textarea>
+</div>
+<!-- Escola e Ano -->
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Unidade Escolar &amp; Série</label>
+<span class="text-[10px] text-on-tertiary-container font-semibold">95%</span>
+</div>
+<input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-lg focus:bg-surface-container-lowest focus:outline-none transition-all font-medium" name="school_info" type="text" value="E.M. Professora Maria José - 7º Ano"/>
+</div>
+<!-- Modalidades Assinaladas na Ficha -->
+<div class="space-y-2 pt-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Modalidades Assinaladas</label>
+<span class="font-label-sm text-[11px] text-on-surface-variant font-medium">Marcadas a caneta na ficha</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<!-- Judô (Marcado) -->
+<label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface-container-low cursor-pointer transition-colors hover:bg-surface-container">
+<input checked="" class="w-4 h-4 rounded text-secondary focus:ring-0 accent-secondary" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary leading-tight">Judô</span>
+<span class="font-label-sm text-[10px] text-on-tertiary-container font-semibold">Assinalado [X]</span>
+</div>
+</label>
+<!-- Futsal (Marcado) -->
+<label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface-container-low cursor-pointer transition-colors hover:bg-surface-container">
+<input checked="" class="w-4 h-4 rounded text-secondary focus:ring-0 accent-secondary" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary leading-tight">Futsal</span>
+<span class="font-label-sm text-[10px] text-on-tertiary-container font-semibold">Assinalado [X]</span>
+</div>
+</label>
+<!-- Atletismo (Não marcado) -->
+<label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface-container-lowest text-on-surface-variant cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 accent-secondary" type="checkbox"/>
+<span class="font-label-md text-label-md">Atletismo</span>
+</label>
+<!-- Ginástica (Não marcado) -->
+<label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface-container-lowest text-on-surface-variant cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 accent-secondary" type="checkbox"/>
+<span class="font-label-md text-label-md">Ginástica</span>
+</label>
+</div>
+</div>
+<!-- Informações de Saúde Detectadas (Alerta de Atenção Especial) -->
+<div class="p-3.5 rounded-xl bg-surface-container-low space-y-2">
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[20px] text-secondary">medical_services</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">Atenção Médica &amp; Alergias</span>
+<span class="ml-auto font-label-sm text-[10px] bg-surface-container px-2 py-0.5 rounded text-on-secondary-fixed-variant font-bold">Importante</span>
+</div>
+<div class="space-y-1">
+<input class="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-3 py-2 rounded-lg focus:outline-none font-medium" name="health_notes" type="text" value="Possui asma moderada - usa bombinha quando necessário"/>
+<p class="font-body-sm text-[11px] text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">info</span>
+              Registrado na ficha física na seção de observações médicas.
+            </p>
+</div>
+</div>
+</form>
+</div>
+</section>
+<!-- 4. Barra de Ações Decisórias no Rodapé / Fixação de Conclusão -->
+<section class="space-y-2.5 pt-2">
+<!-- Botão Primário de Alto Destaque (Esmeralda / Sucesso Institucional) -->
+<button class="w-full h-13 py-3.5 px-4 rounded-xl bg-tertiary-container hover:bg-on-tertiary-fixed text-tertiary-fixed font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all" onclick="salvarCadastroOCR()" type="button">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+<span>Confirmar &amp; Salvar Cadastro</span>
+</button>
+<!-- Linha Secundária: Rejeitar ou Fazer Edição Manual Ampla -->
+<div class="grid grid-cols-2 gap-2.5">
+<button class="h-11 px-3 rounded-lg bg-surface-container-low hover:bg-error-container/40 text-error font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors" onclick="confirmarDescarte()" type="button">
+<span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+<span>Rejeitar / Nova Foto</span>
+</button>
+<button class="h-11 px-3 rounded-lg bg-surface-container hover:bg-surface-container-highest text-primary font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors" onclick="focarEdicao()" type="button">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span>Editar Manualmente</span>
+</button>
+</div>
+</section>
+<!-- Modal / Diálogo de Confirmação de Sucesso (Oculto Inicialmente) -->
+<div class="fixed inset-0 z-50 bg-primary-container/40 backdrop-blur-sm hidden items-center justify-center p-4" id="success-modal">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg w-full max-w-sm shadow-2xl flex flex-col items-center text-center space-y-3">
+<div class="w-14 h-14 rounded-full bg-surface-container text-on-tertiary-container flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-[32px]">task_alt</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Cadastro Efetivado!</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        O aluno <strong>Felipe dos Santos Rocha</strong> foi inserido no sistema com prontuário e ficha digital vinculada.
+      </p>
+<div class="w-full pt-2 flex flex-col gap-2">
+<button class="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md shadow-md" onclick="fecharModalSucesso()" type="button">
+          Digitalizar Próxima Ficha
+        </button>
+<button class="w-full py-2.5 rounded-lg bg-surface-container-low text-primary font-label-md text-label-md" onclick="fecharModalSucesso()" type="button">
+          Ver Perfil do Aluno
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let currentZoom = 1;
+
+  function switchScanTab(tab) {
+    const dataBtn = document.getElementById('tab-data-btn');
+    const docBtn = document.getElementById('tab-doc-btn');
+    const panelData = document.getElementById('panel-data-extracted');
+    const panelDoc = document.getElementById('panel-doc-preview');
+
+    if (tab === 'data') {
+      panelData.classList.remove('hidden');
+      panelDoc.classList.add('hidden');
+      dataBtn.className = "flex-1 py-2 px-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5 bg-surface-container-lowest text-primary shadow-sm transition-all";
+      docBtn.className = "flex-1 py-2 px-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5 text-on-surface-variant hover:text-primary transition-all";
+    } else {
+      panelData.classList.add('hidden');
+      panelDoc.classList.remove('hidden');
+      docBtn.className = "flex-1 py-2 px-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5 bg-surface-container-lowest text-primary shadow-sm transition-all";
+      dataBtn.className = "flex-1 py-2 px-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5 text-on-surface-variant hover:text-primary transition-all";
+    }
+  }
+
+  function adjustDocZoom(delta) {
+    const wrapper = document.getElementById('zoomable-wrapper');
+    currentZoom = Math.min(Math.max(0.8, currentZoom + delta), 2.5);
+    wrapper.style.transform = `scale(${currentZoom})`;
+  }
+
+  function resetDocZoom() {
+    const wrapper = document.getElementById('zoomable-wrapper');
+    currentZoom = 1;
+    wrapper.style.transform = `scale(1)`;
+  }
+
+  function focarEdicao() {
+    switchScanTab('data');
+    const firstInput = document.querySelector('input[name="student_name"]');
+    if (firstInput) {
+      firstInput.focus();
+      firstInput.select();
+    }
+  }
+
+  function confirmarDescarte() {
+    if (confirm('Deseja realmente rejeitar esta leitura e capturar uma nova foto da ficha física?')) {
+      alert('Ficha descartada com segurança. Aponte a câmera com boa iluminação para uma nova digitalização.');
+    }
+  }
+
+  function salvarCadastroOCR() {
+    const modal = document.getElementById('success-modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function fecharModalSucesso() {
+    const modal = document.getElementById('success-modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(15,41,66,0.06)]" data-active-classes="text-secondary"><div class="flex justify-around items-center h-16 px-space-xs max-w-lg mx-auto"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant transition-colors" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-sm text-[10px] leading-tight">Início</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant transition-colors" data-path="alunos" href="#"><span class="material-symbols-outlined text-[22px]">groups</span><span class="font-label-sm text-[10px] leading-tight">Alunos</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant transition-colors" data-path="matriculas" href="#"><span class="material-symbols-outlined text-[22px]">how_to_reg</span><span class="font-label-sm text-[10px] leading-tight">Matrículas</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant transition-colors" data-path="digitalizacao-de-fichas-ia" href="#"><span class="material-symbols-outlined text-[22px]">document_scanner</span><span class="font-label-sm text-[10px] leading-tight">Digitalizar</span></a><button class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant hover:text-primary transition-colors" onclick="document.getElementById('mobile-drawer').classList.remove('-translate-x-full');document.getElementById('drawer-backdrop').classList.remove('hidden');"><span class="material-symbols-outlined text-[22px]">menu</span><span class="font-label-sm text-[10px] leading-tight">Menu</span></button></div></nav></body></html>

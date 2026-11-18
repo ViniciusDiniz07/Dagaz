@@ -1,0 +1,15 @@
+# Dependencies and build output
+**/node_modules/
+**/dist/
+
+# Local environment files; keep example templates
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Uploaded documents may contain personal data
+server/uploads/
+
+# Logs
+*.log

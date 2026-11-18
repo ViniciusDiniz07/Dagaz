@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-variant":"#d3e4fe","on-tertiary-fixed":"#002113","on-secondary-fixed":"#00174b","surface-container-lowest":"#ffffff","secondary":"#0051d5","primary-fixed":"#d1e4ff","on-secondary":"#ffffff","inverse-surface":"#213145","inverse-on-surface":"#eaf1ff","surface-container-low":"#eff4ff","on-secondary-container":"#fefcff","outline":"#74777e","primary":"#001428","on-primary":"#ffffff","surface-bright":"#f8f9ff","error":"#ba1a1a","error-container":"#ffdad6","outline-variant":"#c3c6ce","on-tertiary-fixed-variant":"#005236","surface-tint":"#49607c","on-primary-fixed":"#011d35","surface-dim":"#cbdbf5","on-background":"#0b1c30","primary-fixed-dim":"#b0c9e8","tertiary":"#00170c","tertiary-fixed":"#6ffbbe","surface":"#f8f9ff","surface-container-highest":"#d3e4fe","secondary-container":"#316bf3","secondary-fixed-dim":"#b4c5ff","on-error":"#ffffff","on-primary-container":"#7991af","primary-container":"#0f2942","surface-container-high":"#dce9ff","on-secondary-fixed-variant":"#003ea8","secondary-fixed":"#dbe1ff","on-tertiary-container":"#00a270","on-error-container":"#93000a","on-primary-fixed-variant":"#314863","background":"#f8f9ff","tertiary-fixed-dim":"#4edea3","surface-container":"#e5eeff","on-surface":"#0b1c30","tertiary-container":"#002e1d","inverse-primary":"#b0c9e8","on-surface-variant":"#43474d","on-tertiary":"#ffffff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-xs":"0.25rem","space-xl":"2.5rem","margin-mobile":"1rem","gutter":"1.5rem","space-lg":"1.5rem","space-sm":"0.5rem","gutter-mobile":"1rem","margin":"2rem","space-md":"1rem"},fontFamily:{"headline-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"]},fontSize:{"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-sm":["18px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"400"}],"display-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"display-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}]}}}}</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Abrir menu lateral de navegação" class="w-11 h-11 flex items-center justify-center rounded-lg text-primary hover:bg-surface-container transition-colors" id="open-drawer-btn" onclick="document.getElementById('mobile-drawer').classList.remove('-translate-x-full');document.getElementById('drawer-backdrop').classList.remove('hidden');"><span class="material-symbols-outlined text-[24px]">menu</span></button><div class="flex items-center gap-2"><img alt="Projeto Esporte Dagaz Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnHMFEUdUVmRjfMIKsVPxX2mcIKs7eupASgcyMuWpVXYlRkR312TSvOswdJOxpNLvpdm_DXu44TGafWdpcpAHgCUA1XXsHnezYSABrVd9DpRK-7cLiLYgHTJ9gEKHIYTbRbTQ1wJG23Onielm2rEbGOVoxMWqEh5Hgl9pzbaFCw1boVlqKj9gpMbll5G42MKztHU6-bmDGcQmF9piGGi7O4u6jc-dApF1BoYKE9Zs"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-tight tracking-tight">Esporte Dagaz</span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium leading-none">Gestão Socioesportiva</span></div></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notificações do sistema" class="relative w-11 h-11 flex items-center justify-center rounded-lg text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="relative ml-1"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBChBO9tG8PRhqI1ug191m9AREUAfREBjJoA_WvoDxQWji50XhMASMaLzu0MnMN5bBEPZnuY6XwqKxutBmFQu8B1LSq51YgtE_3XgeaF4fHrpximG3jvVJOZwbSuKMOgA1k2E79uvN3_4Cg3zn1GxaODsA8rx63Xw8GkCApwYaf8OIblvv_i6EB0MFCfdxUPMIT2kRyqUBcjpMkDt5BnD8VVLrahJ1rMoJNV0gw9BE"/><span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-on-tertiary-container rounded-full ring-2 ring-surface"></span></div></div></div></header><div class="fixed inset-0 z-50 bg-primary-container/40 backdrop-blur-sm hidden transition-opacity duration-300" id="drawer-backdrop" onclick="document.getElementById('mobile-drawer').classList.add('-translate-x-full');this.classList.add('hidden');"></div><aside class="fixed top-0 left-0 z-50 h-full w-[290px] bg-surface-container-lowest shadow-[0_8px_24px_rgba(15,41,66,0.08)] transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col pt-safe pb-safe" id="mobile-drawer"><div class="p-space-md flex items-center justify-between bg-surface-container-low"><div class="flex items-center gap-space-sm"><img alt="Projeto Esporte Dagaz Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnHMFEUdUVmRjfMIKsVPxX2mcIKs7eupASgcyMuWpVXYlRkR312TSvOswdJOxpNLvpdm_DXu44TGafWdpcpAHgCUA1XXsHnezYSABrVd9DpRK-7cLiLYgHTJ9gEKHIYTbRbTQ1wJG23Onielm2rEbGOVoxMWqEh5Hgl9pzbaFCw1boVlqKj9gpMbll5G42MKztHU6-bmDGcQmF9piGGi7O4u6jc-dApF1BoYKE9Zs"/><span class="font-headline-sm text-headline-sm text-primary">Esporte Dagaz</span></div><button class="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" onclick="document.getElementById('mobile-drawer').classList.add('-translate-x-full');document.getElementById('drawer-backdrop').classList.add('hidden');"><span class="material-symbols-outlined text-[22px]">close</span></button></div><div class="px-space-md py-space-sm bg-surface-container-low flex items-center gap-3"><img alt="Profile" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBChBO9tG8PRhqI1ug191m9AREUAfREBjJoA_WvoDxQWji50XhMASMaLzu0MnMN5bBEPZnuY6XwqKxutBmFQu8B1LSq51YgtE_3XgeaF4fHrpximG3jvVJOZwbSuKMOgA1k2E79uvN3_4Cg3zn1GxaODsA8rx63Xw8GkCApwYaf8OIblvv_i6EB0MFCfdxUPMIT2kRyqUBcjpMkDt5BnD8VVLrahJ1rMoJNV0gw9BE"/><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface truncate">Administradora Dagaz</span><span class="font-body-sm text-body-sm text-on-surface-variant truncate">admin@esportedagaz.org.br</span></div></div><div class="flex-1 overflow-y-auto py-space-sm px-space-xs"><div class="px-space-sm py-1"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Operacional</span></div><nav class="space-y-0.5"><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px] text-secondary">dashboard</span><span class="font-body-md text-body-md font-medium">Dashboard (Início)</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="alunos" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">groups</span><span class="font-body-md text-body-md">Alunos</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="responsaveis" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">escalator_warning</span><span class="font-body-md text-body-md">Responsáveis</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="matriculas" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">how_to_reg</span><span class="font-body-md text-body-md">Matrículas</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="modalidades-esportivas" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">sports_soccer</span><span class="font-body-md text-body-md">Modalidades esportivas</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="digitalizacao-de-fichas-ia" href="#"><span class="material-symbols-outlined text-[20px] text-secondary">document_scanner</span><span class="font-body-md text-body-md">Digitalização de fichas (IA)</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">insights</span><span class="font-body-md text-body-md">Relatórios</span></a></nav><div class="px-space-sm py-1 mt-3"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Governança</span></div><nav class="space-y-0.5"><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="administradores" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">admin_panel_settings</span><span class="font-body-md text-body-md">Administradores</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="historico-de-alteracoes" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">history</span><span class="font-body-md text-body-md">Histórico de alterações</span></a><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-on-surface hover:bg-surface-container transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">settings</span><span class="font-body-md text-body-md">Configurações</span></a></nav></div><div class="p-space-sm bg-surface-container-low"><a class="flex items-center gap-3 px-space-sm h-11 rounded-lg text-error hover:bg-error-container/30 transition-colors" data-path="sair" href="#"><span class="material-symbols-outlined text-[20px]">logout</span><span class="font-label-lg text-label-lg font-semibold">Sair do sistema</span></a></div></aside><main class="flex flex-col relative w-full px-margin-mobile pt-16 pb-28 bg-surface min-h-screen"><div class="flex flex-col w-full space-y-space-md">
+<!-- Saudação e Filtro de Período -->
+<section class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight truncate">Olá, Ana Silva</h2>
+<span class="text-[20px] select-none">👋</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container inline-block"></span>
+<span>Oficial Administrativo</span>
+<span class="text-outline-variant">•</span>
+<span id="current-date-label">Hoje, 24 de Out</span>
+</p>
+</div>
+<!-- Notificação de Auditoria / Status Rápido -->
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary shadow-sm flex-shrink-0" title="Sistema Operando em Tempo Real">
+<span class="material-symbols-outlined text-[20px] text-secondary">verified_user</span>
+</div>
+</div>
+<!-- Filtro Segmentado de Período -->
+<div class="flex p-1 bg-surface-container rounded-xl w-full">
+<button class="period-btn flex-1 py-1.5 px-2 rounded-lg font-label-md text-label-md text-center transition-all bg-surface-container-lowest text-primary shadow-sm font-semibold" onclick="setActivePeriod(this, 'hoje')">Hoje</button>
+<button class="period-btn flex-1 py-1.5 px-2 rounded-lg font-label-md text-label-md text-center transition-all text-on-surface-variant hover:text-on-surface" onclick="setActivePeriod(this, 'semana')">Esta Semana</button>
+<button class="period-btn flex-1 py-1.5 px-2 rounded-lg font-label-md text-label-md text-center transition-all text-on-surface-variant hover:text-on-surface" onclick="setActivePeriod(this, 'mes')">Este Mês</button>
+</div>
+</section>
+<!-- Ações Rápidas em Destaque (Alta Frequência Operacional) -->
+<section class="flex flex-col gap-space-xs">
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary to-primary-container p-space-md text-on-primary shadow-md">
+<div class="relative z-10 flex flex-col justify-between h-full space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm uppercase tracking-wide">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+            OCR Ativo
+          </span>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim">Processamento Local</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-primary">Digitalização de Fichas com IA</h3>
+<p class="font-body-sm text-body-sm text-primary-fixed-dim mt-0.5">Capture fichas físicas pelo celular e importe cadastros instantaneamente.</p>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<a class="flex-1 flex items-center justify-center gap-2 h-11 px-4 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg shadow-sm active:scale-[0.98] transition-transform" data-path="digitalizacao-de-fichas-ia" href="#">
+<span class="material-symbols-outlined text-[20px]">document_scanner</span>
+<span>Escanear Agora</span>
+</a>
+<a class="h-11 w-11 flex items-center justify-center rounded-lg bg-surface-container-lowest/15 text-on-primary hover:bg-surface-container-lowest/25 transition-colors" data-path="alunos" href="#" title="Novo Aluno Manual">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+</a>
+</div>
+</div>
+<!-- Elemento Decorativo Sutil de Fundo -->
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-secondary/15 blur-xl pointer-events-none"></div>
+</div>
+</section>
+<!-- Grid de Cards de Indicadores (KPIs) -->
+<section class="space-y-space-xs">
+<div class="flex items-center justify-between px-0.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Panorama Socioesportivo</h3>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Geral 2024</span>
+</div>
+<!-- Mosaico Mobile (2 Colunas com Alinhamento Harmonioso) -->
+<div class="grid grid-cols-2 gap-space-xs">
+<!-- KPI 1: Total de Alunos -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">groups</span>
+</div>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-surface-container-highest text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">
+            +12 novos
+          </span>
+</div>
+<div class="mt-3">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary tracking-tight">482</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-medium mt-0.5">Total de Alunos</p>
+</div>
+<!-- Micro sparkline decorativo -->
+<div class="mt-2 h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<!-- KPI 2: Alunos Ativos (Frequência) -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-surface-container-highest text-on-tertiary-container font-label-sm text-label-sm font-semibold">
+            90.2% freq.
+          </span>
+</div>
+<div class="mt-3">
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface tracking-tight">435</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-medium mt-0.5">Alunos Ativos</p>
+</div>
+<div class="mt-2 h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-on-tertiary-container rounded-full" style="width: 90.2%"></div>
+</div>
+</div>
+<!-- KPI 3: Total de Matrículas -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Multimodal</span>
+</div>
+<div class="mt-3">
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface tracking-tight">518</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-medium mt-0.5">Matrículas Totais</p>
+</div>
+<p class="font-body-sm text-[11px] text-outline mt-1 truncate">Média: 1.07 mod./aluno</p>
+</div>
+<!-- KPI 4: Responsáveis Cadastrados -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]">family_restroom</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Famílias</span>
+</div>
+<div class="mt-3">
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface tracking-tight">394</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-medium mt-0.5">Responsáveis</p>
+</div>
+<p class="font-body-sm text-[11px] text-outline mt-1 truncate">100% c/ contato ativo</p>
+</div>
+<!-- KPI 5: Fichas Pendentes (IA) - Destaque Atenção (Largura Dupla) -->
+<div class="col-span-2 p-space-sm rounded-xl bg-surface-container-low shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[22px]">pending_actions</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">7 Fichas IA Pendentes</span>
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Aguardando conferência humana do OCR</p>
+</div>
+</div>
+<a class="h-9 px-3 rounded-lg bg-surface-container-lowest text-secondary font-label-md text-label-md flex items-center justify-center shadow-sm font-semibold active:bg-surface-container transition-colors" data-path="digitalizacao-de-fichas-ia" href="#">
+          Revisar
+        </a>
+</div>
+</div>
+</section>
+<!-- Gráficos de Gestão Esportiva -->
+<section class="space-y-space-xs">
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Alunos por Modalidade</h4>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Distribuição de vagas preenchidas</span>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded-full font-semibold">
+          6 Ativas
+        </span>
+</div>
+<!-- Gráfico de Barras Horizontais com Percentuais Dinâmicos -->
+<div class="space-y-2.5 pt-1">
+<!-- Futsal -->
+<div class="space-y-1">
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+              Futsal
+            </span>
+<span class="text-on-surface-variant font-medium">132 alunos <span class="text-outline font-normal">(25.5%)</span></span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 25.5%"></div>
+</div>
+</div>
+<!-- Judô -->
+<div class="space-y-1">
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+              Judô
+            </span>
+<span class="text-on-surface-variant font-medium">96 alunos <span class="text-outline font-normal">(18.5%)</span></span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 18.5%"></div>
+</div>
+</div>
+<!-- Capoeira -->
+<div class="space-y-1">
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+              Capoeira
+            </span>
+<span class="text-on-surface-variant font-medium">84 alunos <span class="text-outline font-normal">(16.2%)</span></span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-tertiary-container rounded-full" style="width: 16.2%"></div>
+</div>
+</div>
+<!-- Funcional Kids -->
+<div class="space-y-1">
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+              Treinamento Funcional
+            </span>
+<span class="text-on-surface-variant font-medium">72 alunos <span class="text-outline font-normal">(13.9%)</span></span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container rounded-full" style="width: 13.9%"></div>
+</div>
+</div>
+<!-- Basquete 3x3 -->
+<div class="space-y-1">
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+              Basquete 3x3
+            </span>
+<span class="text-on-surface-variant font-medium">68 alunos <span class="text-outline font-normal">(13.1%)</span></span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 13.1%"></div>
+</div>
+</div>
+<!-- Futevôlei -->
+<div class="space-y-1">
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-surface-tint"></span>
+              Futevôlei
+            </span>
+<span class="text-on-surface-variant font-medium">66 alunos <span class="text-outline font-normal">(12.8%)</span></span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-surface-tint rounded-full" style="width: 12.8%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card de Distribuição por Faixa Etária -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Faixa Etária do Projeto</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Público Atendido</span>
+</div>
+<!-- Mini Grid de Faixas Etárias -->
+<div class="grid grid-cols-3 gap-2 pt-1">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">06 - 09 anos</span>
+<span class="font-headline-sm text-headline-sm text-primary mt-1">28%</span>
+<span class="font-body-sm text-[11px] text-outline mt-0.5">135 crianças</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-variant/40 flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">10 - 13 anos</span>
+<span class="font-headline-sm text-headline-sm text-secondary mt-1">44%</span>
+<span class="font-body-sm text-[11px] text-secondary font-medium mt-0.5">212 jovens</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">14 - 17 anos</span>
+<span class="font-headline-sm text-headline-sm text-primary mt-1">28%</span>
+<span class="font-body-sm text-[11px] text-outline mt-0.5">135 adolescentes</span>
+</div>
+</div>
+<!-- Barra Composta Segmentada -->
+<div class="h-2 w-full rounded-full flex overflow-hidden gap-0.5 bg-surface-container">
+<div class="h-full bg-secondary-fixed-dim" style="width: 28%" title="06 a 09 anos"></div>
+<div class="h-full bg-secondary" style="width: 44%" title="10 a 13 anos"></div>
+<div class="h-full bg-primary-container" style="width: 28%" title="14 a 17 anos"></div>
+</div>
+</div>
+</section>
+<!-- Feed de Atividades Recentes do Sistema -->
+<section class="space-y-space-xs">
+<div class="flex items-center justify-between px-0.5">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Atividades Recentes</h3>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<a class="font-label-md text-label-md text-secondary font-semibold" data-path="historico-de-alteracoes" href="#">Ver todas</a>
+</div>
+<div class="rounded-xl bg-surface-container-lowest shadow-sm p-space-sm space-y-3">
+<!-- Item 1: Ficha validada -->
+<div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-tertiary-container flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<p class="font-label-lg text-label-lg text-on-surface truncate">Ficha #089 validada</p>
+<span class="inline-flex px-1.5 py-0.5 rounded-full bg-surface-container-highest text-on-tertiary-container font-label-sm text-[10px] font-semibold flex-shrink-0">Concluído</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Carlos Santos aprovou dados socioeconômicos</p>
+<span class="font-body-sm text-[11px] text-outline">Há 15 minutos</span>
+</div>
+</div>
+<!-- Item 2: Nova Matrícula -->
+<div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-secondary flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">sports_martial_arts</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<p class="font-label-lg text-label-lg text-on-surface truncate">Nova Matrícula: Lucas Oliveira</p>
+<span class="inline-flex px-1.5 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-[10px] font-semibold flex-shrink-0">Judô</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Turma Matutina (Sub-13) • Vaga confirmada</p>
+<span class="font-body-sm text-[11px] text-outline">Há 42 minutos</span>
+</div>
+</div>
+<!-- Item 3: Atualização Cadastral -->
+<div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary-container flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">contact_phone</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<p class="font-label-lg text-label-lg text-on-surface truncate">Atualização de Responsável</p>
+<span class="font-body-sm text-[11px] text-outline flex-shrink-0">Há 2 horas</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Marcos Lima atualizou contato de emergência</p>
+</div>
+</div>
+<!-- Item 4: Ficha OCR celular -->
+<div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-tertiary-fixed-variant flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<p class="font-label-lg text-label-lg text-on-surface truncate">Ficha OCR #092 enviada</p>
+<span class="inline-flex px-1.5 py-0.5 rounded-full bg-surface-container-low text-on-tertiary-fixed-variant font-label-sm text-[10px] font-semibold flex-shrink-0">Aguardando</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Captura mobile de ficha de inscrição física</p>
+<span class="font-body-sm text-[11px] text-outline">Há 3 horas</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Seção de Ações de Governança / Atalho para Exportação -->
+<section class="pb-2">
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[22px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col">
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Resumo Mensal do Projeto</h4>
+<span class="font-body-sm text-[12px] text-on-surface-variant">Consolidado esportivo e socioeconômico</span>
+</div>
+</div>
+<button aria-label="Exportar relatório em formato PDF" class="h-10 px-3.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center gap-1.5 active:bg-primary/90 transition-colors shadow-sm" onclick="downloadReportModal()">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>PDF</span>
+</button>
+</div>
+</section>
+</div>
+<script>
+  function setActivePeriod(button, periodKey) {
+    const buttons = document.querySelectorAll('.period-btn');
+    buttons.forEach(btn => {
+      btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+      btn.classList.add('text-on-surface-variant');
+    });
+
+    button.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+    button.classList.remove('text-on-surface-variant');
+
+    const dateLabel = document.getElementById('current-date-label');
+    if (periodKey === 'hoje') {
+      dateLabel.textContent = 'Hoje, 24 de Out';
+    } else if (periodKey === 'semana') {
+      dateLabel.textContent = 'Semana 43 (20 a 26 Out)';
+    } else if (periodKey === 'mes') {
+      dateLabel.textContent = 'Outubro / 2024';
+    }
+  }
+
+  function downloadReportModal() {
+    const btn = event.currentTarget;
+    const originalContent = btn.innerHTML;
+    btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span> <span>Gerando...</span>`;
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = `<span class="material-symbols-outlined text-[18px] text-tertiary-fixed">check</span> <span>Baixado</span>`;
+      setTimeout(() => {
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+      }, 2000);
+    }, 1200);
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(15,41,66,0.06)]" data-active-classes="text-secondary"><div class="flex justify-around items-center h-16 px-space-xs max-w-lg mx-auto"><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 transition-colors text-secondary" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-sm text-[10px] leading-tight">Início</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant transition-colors" data-path="alunos" href="#"><span class="material-symbols-outlined text-[22px]">groups</span><span class="font-label-sm text-[10px] leading-tight">Alunos</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant transition-colors" data-path="matriculas" href="#"><span class="material-symbols-outlined text-[22px]">how_to_reg</span><span class="font-label-sm text-[10px] leading-tight">Matrículas</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant transition-colors" data-path="digitalizacao-de-fichas-ia" href="#"><span class="material-symbols-outlined text-[22px]">document_scanner</span><span class="font-label-sm text-[10px] leading-tight">Digitalizar</span></a><button class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant hover:text-primary transition-colors" onclick="document.getElementById('mobile-drawer').classList.remove('-translate-x-full');document.getElementById('drawer-backdrop').classList.remove('hidden');"><span class="material-symbols-outlined text-[22px]">menu</span><span class="font-label-sm text-[10px] leading-tight">Menu</span></button></div></nav></body></html>
