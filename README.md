@@ -1,4 +1,4 @@
-# Sistema de Gestão Socioesportiva – Condomínio Cultura e Esportivo
+# Sistema de Gestão Socioesportiva – Condomínio Cultural e Esportivo
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
@@ -7,7 +7,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Google Gemini](https://img.shields.io/badge/Google_Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
 
-Plataforma integrada de gestão socioesportiva do **Condomínio Cultura e Esportivo**, em Volta Redonda/RJ.
+Plataforma integrada de gestão socioesportiva do **Condomínio Cultural e Esportivo**, em Volta Redonda/RJ.
 
 O sistema digitaliza e centraliza todo o fluxo de matrículas, turmas, prontuários de saúde e acompanhamento socioeconômico das famílias atendidas, integrando **inteligência artificial multimodal (Google Gemini)** para leitura de fichas físicas de papel.
 
@@ -103,4 +103,4 @@ Consulte a pasta [`docs/`](./docs/):
 
 ## ⚖️ Conformidade e Licença
 Desenvolvido em estrita conformidade com o Artigo 14 da Lei Geral de Proteção de Dados Pessoais (LGPD – Lei nº 13.709/2018).
-Todos os direitos reservados ao **Condomínio Cultura e Esportivo**.
+Todos os direitos reservados ao **Condomínio Cultural e Esportivo**.

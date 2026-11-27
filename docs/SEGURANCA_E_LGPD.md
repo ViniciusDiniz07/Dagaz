@@ -1,6 +1,6 @@
 # Diretrizes de Segurança, LGPD e Proteção de Dados de Menores
 
-Este documento detalha as medidas de segurança cibernética, privacidade e conformidade com a **Lei Geral de Proteção de Dados (LGPD – Lei nº 13.709/2018)** aplicadas na arquitetura do **Sistema de Gestão Socioesportiva – Condomínio Cultura e Esportivo**.
+Este documento detalha as medidas de segurança cibernética, privacidade e conformidade com a **Lei Geral de Proteção de Dados (LGPD – Lei nº 13.709/2018)** aplicadas na arquitetura do **Sistema de Gestão Socioesportiva – Condomínio Cultural e Esportivo**.
 
 ---
 
@@ -8,7 +8,7 @@ Este documento detalha as medidas de segurança cibernética, privacidade e conf
 
 O sistema lida com dados cadastrais, familiares e de saúde de crianças e adolescentes beneficiados pelo projeto social. Em estrita observância ao **Art. 14 da LGPD**:
 
-1. **Melhor Interesse do Menor:** Todas as coletas de dados têm como única finalidade a segurança física, pedagógica e socioesportiva do aluno no âmbito das atividades do Condomínio Cultura e Esportivo.
+1. **Melhor Interesse do Menor:** Todas as coletas de dados têm como única finalidade a segurança física, pedagógica e socioesportiva do aluno no âmbito das atividades do Condomínio Cultural e Esportivo.
 2. **Consentimento Específico e em Destaque:** O cadastro exige obrigatoriamente a identificação formal do responsável legal (mãe, pai ou tutor legal), incluindo declaração expressa de veracidade e autorização de uso de imagem.
 3. **Minimização da Coleta:** Coletam-se apenas os dados estritamente necessários para atendimento a emergências de saúde, formação de turmas adequadas à faixa etária e comprovação de indicadores sociais para convênios públicos (ex: CSN, Governo do Estado do Rio de Janeiro).
 

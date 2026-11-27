@@ -1,6 +1,6 @@
-# Manual de Instalação e Execução – Condomínio Cultura e Esportivo
+# Manual de Instalação e Execução – Condomínio Cultural e Esportivo
 
-Este documento orienta a equipe de tecnologia e desenvolvimento na instalação, configuração e inicialização do **Sistema de Gestão Socioesportiva – Condomínio Cultura e Esportivo**.
+Este documento orienta a equipe de tecnologia e desenvolvimento na instalação, configuração e inicialização do **Sistema de Gestão Socioesportiva – Condomínio Cultural e Esportivo**.
 
 ---
 

@@ -1,7 +1,7 @@
 {
   "name": "dagaz-server",
   "version": "1.0.0",
-  "description": "Backend API para o Sistema de Gestão Socioesportiva - Condomínio Cultura e Esportivo",
+  "description": "Backend API para o Sistema de Gestão Socioesportiva - Condomínio Cultural e Esportivo",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",

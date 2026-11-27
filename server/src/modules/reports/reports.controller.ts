@@ -366,7 +366,7 @@ export async function exportReport(req: Request, res: Response): Promise<void> {
   }
 
   res.json({
-    projeto: 'Condomínio Cultura e Esportivo - Gestão Socioesportiva',
+    projeto: 'Condomínio Cultural e Esportivo - Gestão Socioesportiva',
     dataEmissao: new Date().toLocaleDateString('pt-BR'),
     formato: format,
     totalRegistros: exportData.length,

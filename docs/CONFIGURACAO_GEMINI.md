@@ -1,6 +1,6 @@
-# Guia de Configuração do Google Gemini AI – Condomínio Cultura e Esportivo
+# Guia de Configuração do Google Gemini AI – Condomínio Cultural e Esportivo
 
-Este documento orienta a integração do **Google Gemini AI** para a digitalização inteligente de fichas físicas de inscrição no Sistema de Gestão Socioesportiva – Condomínio Cultura e Esportivo.
+Este documento orienta a integração do **Google Gemini AI** para a digitalização inteligente de fichas físicas de inscrição no Sistema de Gestão Socioesportiva – Condomínio Cultural e Esportivo.
 
 ---
 

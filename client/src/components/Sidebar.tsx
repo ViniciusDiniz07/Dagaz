@@ -30,12 +30,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPath, onNavigate }) => 
       {/* Brand Header */}
       <div className="p-space-md flex items-center gap-space-sm bg-surface-container-low border-b border-surface-container-high/50">
         <img
-          alt="Logotipo do Condomínio Cultura e Esportivo"
+          alt="Logotipo do Condomínio Cultural e Esportivo"
           className="h-7 w-auto object-contain"
-          src="/logo-condominio-cultura-esportivo-transparente.png"
+          src="/logo-condominio-cultural-esportivo-transparente.png"
         />
         <div className="flex flex-col">
-          <span className="font-headline-sm text-[13px] text-primary leading-tight">Condomínio Cultura e Esportivo</span>
+          <span className="font-headline-sm text-[13px] text-primary leading-tight">Condomínio Cultural e Esportivo</span>
           <span className="font-label-sm text-[10px] text-on-surface-variant font-medium">Gestão Socioesportiva</span>
         </div>
       </div>

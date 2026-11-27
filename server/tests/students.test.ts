@@ -96,7 +96,7 @@ describe('Módulo de Alunos e Matrículas', () => {
   });
 
   describe('Repositório de Dados e Integridade (Database Engine)', () => {
-    it('deve carregar dados pre-seedados do Condomínio Cultura e Esportivo', async () => {
+    it('deve carregar dados pre-seedados do Condomínio Cultural e Esportivo', async () => {
       const db = dbAccess.getMemoryDb();
       expect(db.students.length).toBeGreaterThan(0);
       expect(db.sports.length).toBe(6); // 6 modalidades oficiais

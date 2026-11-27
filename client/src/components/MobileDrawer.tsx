@@ -58,11 +58,11 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         <div className="p-space-md flex items-center justify-between bg-surface-container-low">
           <div className="flex items-center gap-space-sm">
             <img
-              alt="Logotipo do Condomínio Cultura e Esportivo"
+              alt="Logotipo do Condomínio Cultural e Esportivo"
               className="h-7 w-auto object-contain"
-              src="/logo-condominio-cultura-esportivo-transparente.png"
+              src="/logo-condominio-cultural-esportivo-transparente.png"
             />
-            <span className="font-headline-sm text-[13px] text-primary leading-tight">Condomínio Cultura e Esportivo</span>
+            <span className="font-headline-sm text-[13px] text-primary leading-tight">Condomínio Cultural e Esportivo</span>
           </div>
           <button
             type="button"

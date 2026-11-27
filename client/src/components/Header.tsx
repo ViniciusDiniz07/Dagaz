@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({
   onOpenDrawer,
-  title = 'Condomínio Cultura e Esportivo',
+  title = 'Condomínio Cultural e Esportivo',
   showBack = false,
   onBack,
 }) => {
@@ -42,9 +42,9 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="flex items-center gap-2">
             <img
-              alt="Logotipo do Condomínio Cultura e Esportivo"
+              alt="Logotipo do Condomínio Cultural e Esportivo"
               className="h-8 w-auto object-contain"
-              src="/logo-condominio-cultura-esportivo-transparente.png"
+              src="/logo-condominio-cultural-esportivo-transparente.png"
             />
             <div className="flex flex-col">
               <span className="font-headline-sm text-primary leading-tight tracking-tight max-w-[150px] text-[12px] sm:max-w-none sm:text-[16px]">

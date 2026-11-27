@@ -63,7 +63,7 @@ export function createApp(): express.Application {
   app.get('/api/health', (_req, res) => {
     res.json({
       status: 'online',
-      projeto: 'Condomínio Cultura e Esportivo - Gestão Socioesportiva',
+      projeto: 'Condomínio Cultural e Esportivo - Gestão Socioesportiva',
       versao: '1.0.4',
       timestamp: new Date().toISOString(),
       modos: {

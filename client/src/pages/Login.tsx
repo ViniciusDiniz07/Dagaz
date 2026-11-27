@@ -45,9 +45,9 @@ export const Login: React.FC<LoginProps> = ({ onSuccess }) => {
             {/* Emblem Container with soft halo */}
             <div className="mb-space-sm flex items-center justify-center">
               <img
-                alt="Logotipo do Condomínio Cultura e Esportivo"
+                alt="Logotipo do Condomínio Cultural e Esportivo"
                 className="w-20 h-20 object-contain"
-                src="/logo-condominio-cultura-esportivo-transparente.png"
+                src="/logo-condominio-cultural-esportivo-transparente.png"
               />
             </div>
 
@@ -57,7 +57,7 @@ export const Login: React.FC<LoginProps> = ({ onSuccess }) => {
               <span>Acesso Restrito • Equipe do Condomínio</span>
             </div>
             <h1 className="font-headline-sm text-headline-sm text-primary tracking-tight">
-              Condomínio Cultura e Esportivo
+              Condomínio Cultural e Esportivo
             </h1>
             <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
               Sistema de Gestão Administrativa

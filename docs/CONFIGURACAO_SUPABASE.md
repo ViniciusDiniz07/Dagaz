@@ -1,6 +1,6 @@
-# Guia de Configuração do Supabase & PostgreSQL – Condomínio Cultura e Esportivo
+# Guia de Configuração do Supabase & PostgreSQL – Condomínio Cultural e Esportivo
 
-Este documento orienta a equipe de infraestrutura e banco de dados na configuração do **Supabase** para o Sistema de Gestão Socioesportiva – Condomínio Cultura e Esportivo.
+Este documento orienta a equipe de infraestrutura e banco de dados na configuração do **Supabase** para o Sistema de Gestão Socioesportiva – Condomínio Cultural e Esportivo.
 
 ---
 
@@ -9,7 +9,7 @@ Este documento orienta a equipe de infraestrutura e banco de dados na configura�
 1. Acesse o painel oficial em [supabase.com](https://supabase.com/) e faça login.
 2. Clique em **"New Project"**.
 3. Preencha as informações:
-   - **Name**: `condominio-cultura-esportivo-prod` (ou `condominio-cultura-esportivo-dev`)
+   - **Name**: `condominio-cultural-esportivo-prod` (ou `condominio-cultural-esportivo-dev`)
    - **Database Password**: Gere uma senha forte e armazene em cofre seguro.
    - **Region**: Selecione `São Paulo (sa-east-1)` para garantir a menor latência no Brasil.
    - **Pricing Plan**: Free ou Pro conforme a demanda institucional.
@@ -124,7 +124,7 @@ pnpm run dev
 Você deverá ver no console de inicialização:
 ```plaintext
 [INFO] Conectado com sucesso ao banco PostgreSQL/Supabase.
-[INFO] API do Condomínio Cultura e Esportivo rodando na porta 3001 em modo development
+[INFO] API do Condomínio Cultural e Esportivo rodando na porta 3001 em modo development
 ```
 
 Caso ocorra qualquer erro de conexão com a rede externa, o sistema alertará e ativará o **Modo Local Resiliente**, assegurando que os operadores nunca fiquem sem atendimento.
