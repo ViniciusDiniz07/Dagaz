@@ -74,20 +74,17 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         </div>
 
         <div className="px-space-md py-space-sm bg-surface-container-low flex items-center gap-3">
-          <img
-            alt="Profile"
-            className="w-10 h-10 rounded-full object-cover"
-            src={
-              user?.avatarUrl ||
-              'https://lh3.googleusercontent.com/aida-public/AB6AXuBChBO9tG8PRhqI1ug191m9AREUAfREBjJoA_WvoDxQWji50XhMASMaLzu0MnMN5bBEPZnuY6XwqKxutBmFQu8B1LSq51YgtE_3XgeaF4fHrpximG3jvVJOZwbSuKMOgA1k2E79uvN3_4Cg3zn1GxaODsA8rx63Xw8GkCApwYaf8OIblvv_i6EB0MFCfdxUPMIT2kRyqUBcjpMkDt5BnD8VVLrahJ1rMoJNV0gw9BE'
-            }
-          />
+          {user?.avatarUrl ? (
+            <img alt="" className="w-10 h-10 rounded-full object-cover" src={user.avatarUrl} />
+          ) : (
+            <span className="material-symbols-outlined text-[40px] text-outline">account_circle</span>
+          )}
           <div className="flex flex-col min-w-0">
             <span className="font-label-lg text-label-lg text-on-surface truncate">
-              {user?.nome || 'Administradora Dagaz'}
+              {user?.nome || 'Usuário'}
             </span>
             <span className="font-body-sm text-body-sm text-on-surface-variant truncate">
-              {user?.email || 'admin@esportedagaz.org.br'}
+              {user?.email || '—'}
             </span>
           </div>
         </div>

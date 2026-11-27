@@ -67,14 +67,17 @@ export const StudentDossierModal: React.FC<StudentDossierModalProps> = ({
             <>
               {/* Aluno Resumo */}
               <div className="flex items-start gap-4 p-3.5 rounded-xl bg-surface-container-low">
-                <img
-                  alt="Aluno"
-                  className="w-16 h-16 rounded-xl object-cover shadow-sm bg-surface-container"
-                  src={
-                    data.student?.foto_url ||
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuAVvDTAxLxeODW44EobujUHpS15WRLFYjc12zgEPvoaJnQdWJ03c9YLWJNvLHDu_BdzOXLPdVRhX-hTNg5x6ZNzUG5MhQgtPWVF9ZSUe5UBNbvYE8W4tMFwT1Nr8qwsErSdu7l0OZwTOD8TPwUMUdjWyTvlcWlapfAtohl0SMp73oCebdqsWN-l2fmXwjpULbpIB8YQ0D8Eyz7f6zEi5EuOupHTpabkP7fRAYYs_V0'
-                  }
-                />
+                {data.student?.foto_url ? (
+                  <img
+                    alt=""
+                    className="w-16 h-16 rounded-xl object-cover shadow-sm bg-surface-container"
+                    src={data.student.foto_url}
+                  />
+                ) : (
+                  <div className="w-16 h-16 rounded-xl bg-surface-container flex items-center justify-center">
+                    <span className="material-symbols-outlined text-[36px] text-outline">person</span>
+                  </div>
+                )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <h3 className="font-headline-sm text-headline-sm text-primary font-bold truncate">

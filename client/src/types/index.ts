@@ -114,7 +114,7 @@ export interface DashboardData {
     totalAlunos: number;
     alunosNovos: number;
     alunosAtivos: number;
-    frequenciaPercentual: string;
+    percentualAlunosAtivos: number;
     matriculasTotais: number;
     matriculasAtivas: number;
     matriculasAguardandoVaga: number;
@@ -161,6 +161,7 @@ export interface OCRExtractedData {
   };
   guardian: {
     name: { value: string | null; confidence: number; status: string };
+    cpf: { value: string | null; confidence: number; status: string };
     relationship: { value: string | null; confidence: number; status: string };
     phone: { value: string | null; confidence: number; status: string };
     address: { value: string | null; confidence: number; status: string };

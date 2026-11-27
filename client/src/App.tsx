@@ -113,10 +113,10 @@ export const App: React.FC = () => {
                 Configurações do Polo Socioesportivo
               </h2>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                Polo Volta Redonda/RJ • Ciclo Letivo 2025/2026. Parceria Instituto Dagaz, CSN e Secretaria de Estado de Esporte e Lazer do Rio de Janeiro.
+                Polo Volta Redonda/RJ. Parceria Instituto Dagaz, CSN e Secretaria de Estado de Esporte e Lazer do Rio de Janeiro.
               </p>
               <div className="pt-2 text-label-sm text-outline">
-                Versão do Sistema: v1.0.4 • Banco PostgreSQL com Row Level Security (RLS) e Gemini OCR integrado.
+                Versão do Sistema: v1.0.4
               </div>
             </div>
           )}

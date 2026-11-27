@@ -12,15 +12,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const [period, setPeriod] = useState<'hoje' | 'semana' | 'mes'>('hoje');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<DashboardData | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [downloadingPdf, setDownloadingPdf] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
 
   useEffect(() => {
     setLoading(true);
+    setLoadError(null);
     api
       .getDashboardStats(period)
       .then((res) => setData(res))
-      .catch((err) => console.error('Erro ao carregar dados do dashboard:', err))
+      .catch((err) => {
+        console.error('Erro ao carregar dados do dashboard:', err);
+        setLoadError(err instanceof Error ? err.message : 'Não foi possível carregar os indicadores.');
+      })
       .finally(() => setLoading(false));
   }, [period]);
 
@@ -47,18 +52,22 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   };
 
   const kpis = data?.kpis || {
-    totalAlunos: 482,
-    alunosNovos: 12,
-    alunosAtivos: 435,
-    frequenciaPercentual: '90.2%',
-    matriculasTotais: 518,
-    matriculasAtivas: 435,
-    matriculasAguardandoVaga: 32,
-    matriculasTrancadas: 21,
-    matriculasCanceladas: 30,
-    totalResponsaveis: 394,
-    fichasPendentes: 7,
+    totalAlunos: 0,
+    alunosNovos: 0,
+    alunosAtivos: 0,
+    percentualAlunosAtivos: 0,
+    matriculasTotais: 0,
+    matriculasAtivas: 0,
+    matriculasAguardandoVaga: 0,
+    matriculasTrancadas: 0,
+    matriculasCanceladas: 0,
+    totalResponsaveis: 0,
+    fichasPendentes: 0,
   };
+  const studentActiveWidth = `${kpis.percentualAlunosAtivos}%`;
+  const modalityCount = data?.modalidades.length || 0;
+  const averageModalities =
+    kpis.totalAlunos > 0 ? (kpis.matriculasTotais / kpis.totalAlunos).toFixed(2) : '—';
 
   return (
     <div className="flex flex-col w-full space-y-space-md">
@@ -68,7 +77,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-1.5">
               <h2 className="font-headline-md text-headline-md text-on-surface tracking-tight truncate">
-                Olá, {user?.nome?.split(' ')[0] || 'Ana Silva'}
+                Olá, {user?.nome?.split(' ')[0] || 'equipe'}
               </h2>
               <span className="text-[20px] select-none">👋</span>
             </div>
@@ -76,7 +85,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               <span className="w-2 h-2 rounded-full bg-on-tertiary-container inline-block"></span>
               <span>{user?.role === 'admin' ? 'Administradora Geral' : 'Oficial Administrativo'}</span>
               <span className="text-outline-variant">•</span>
-              <span>{data?.periodLabel || 'Hoje, 24 de Out'}</span>
+              <span>{data?.periodLabel || (loading ? 'Carregando período...' : '')}</span>
             </p>
           </div>
 
@@ -129,6 +138,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         </div>
       </section>
 
+      {loadError && (
+        <div role="alert" className="p-3 rounded-lg bg-error-container text-on-error-container">
+          Não foi possível carregar os indicadores: {loadError}
+        </div>
+      )}
+
       {/* Ações Rápidas em Destaque (Alta Frequência Operacional) */}
       <section className="flex flex-col gap-space-xs">
         <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary to-primary-container p-space-md text-on-primary shadow-md">
@@ -136,10 +151,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             <div className="flex items-center justify-between">
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm uppercase tracking-wide">
                 <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
-                OCR Ativo
+                Cadastro digital
               </span>
               <span className="font-label-sm text-label-sm text-primary-fixed-dim">
-                Google Gemini Integrado
+                Envio de fichas
               </span>
             </div>
             <div>
@@ -180,7 +195,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           <h3 className="font-headline-sm text-headline-sm text-on-surface">
             Panorama Socioesportivo
           </h3>
-          <span className="font-label-sm text-label-sm text-secondary font-semibold">Geral 2025</span>
+          <span className="font-label-sm text-label-sm text-secondary font-semibold">Visão geral</span>
         </div>
 
         {/* Mosaico Mobile (2 Colunas com Alinhamento Harmonioso) */}
@@ -203,19 +218,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                 Total de Alunos
               </p>
             </div>
-            <div className="mt-2 h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
-              <div className="h-full bg-secondary rounded-full" style={{ width: '78%' }}></div>
-            </div>
           </div>
 
-          {/* KPI 2: Alunos Ativos (Frequência) */}
+          {/* KPI 2: Alunos Ativos */}
           <div className="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
             <div className="flex items-center justify-between">
               <div className="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-tertiary-container">
                 <span className="material-symbols-outlined text-[18px]">check_circle</span>
               </div>
               <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-surface-container-highest text-on-tertiary-container font-label-sm text-label-sm font-semibold">
-                {kpis.frequenciaPercentual} freq.
+                {kpis.percentualAlunosAtivos}% do total
               </span>
             </div>
             <div className="mt-3">
@@ -227,7 +239,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               </p>
             </div>
             <div className="mt-2 h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
-              <div className="h-full bg-on-tertiary-container rounded-full" style={{ width: '90.2%' }}></div>
+              <div
+                className="h-full bg-on-tertiary-container rounded-full"
+                style={{ width: studentActiveWidth }}
+              ></div>
             </div>
           </div>
 
@@ -248,7 +263,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               </p>
             </div>
             <p className="font-body-sm text-[11px] text-outline mt-1 truncate">
-              Média: 1.07 mod./aluno
+              Média: {averageModalities} matrículas por aluno
             </p>
           </div>
 
@@ -269,7 +284,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               </p>
             </div>
             <p className="font-body-sm text-[11px] text-outline mt-1 truncate">
-              100% c/ contato ativo
+              Cadastros no sistema
             </p>
           </div>
 
@@ -282,9 +297,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-headline-sm text-headline-sm text-on-surface">
-                    {kpis.fichasPendentes} Fichas IA Pendentes
+                  {kpis.fichasPendentes} fichas para revisão
                   </span>
+                  {kpis.fichasPendentes > 0 && (
                   <span className="w-2 h-2 rounded-full bg-error animate-ping"></span>
+                  )}
                 </div>
                 <p className="font-body-sm text-body-sm text-on-surface-variant">
                   Aguardando conferência humana do OCR
@@ -315,14 +332,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               </span>
             </div>
             <span className="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded-full font-semibold">
-              6 Ativas
+              {modalityCount} ativas
             </span>
           </div>
 
           {/* Gráfico de Barras Horizontais */}
           <div className="space-y-2.5 pt-1">
-            {data?.modalidades ? (
-              data.modalidades.map((m) => (
+            {data ? (
+              data.modalidades.length > 0 ? data.modalidades.map((m) => (
                 <div key={m.nome} className="space-y-1">
                   <div className="flex justify-between items-center font-label-md text-label-md">
                     <span className="text-on-surface flex items-center gap-1.5">
@@ -344,7 +361,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                     ></div>
                   </div>
                 </div>
-              ))
+              )) : (
+                <div className="py-4 text-center text-outline">Nenhuma modalidade cadastrada.</div>
+              )
             ) : (
               <div className="py-4 text-center text-outline">Carregando modalidades...</div>
             )}
@@ -367,24 +386,34 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               <span className="font-label-sm text-label-sm text-on-surface-variant">
                 06 - 09 anos
               </span>
-              <span className="font-headline-sm text-headline-sm text-primary mt-1">28%</span>
-              <span className="font-body-sm text-[11px] text-outline mt-0.5">135 crianças</span>
+              <span className="font-headline-sm text-headline-sm text-primary mt-1">
+                {data?.faixaEtaria.grupo1.percent || 0}%
+              </span>
+              <span className="font-body-sm text-[11px] text-outline mt-0.5">
+                {data?.faixaEtaria.grupo1.count || 0} alunos
+              </span>
             </div>
             <div className="p-2.5 rounded-lg bg-surface-variant/40 flex flex-col items-center text-center">
               <span className="font-label-sm text-label-sm text-secondary font-semibold">
                 10 - 13 anos
               </span>
-              <span className="font-headline-sm text-headline-sm text-secondary mt-1">44%</span>
+              <span className="font-headline-sm text-headline-sm text-secondary mt-1">
+                {data?.faixaEtaria.grupo2.percent || 0}%
+              </span>
               <span className="font-body-sm text-[11px] text-secondary font-medium mt-0.5">
-                212 jovens
+                {data?.faixaEtaria.grupo2.count || 0} alunos
               </span>
             </div>
             <div className="p-2.5 rounded-lg bg-surface-container-low flex flex-col items-center text-center">
               <span className="font-label-sm text-label-sm text-on-surface-variant">
                 14 - 17 anos
               </span>
-              <span className="font-headline-sm text-headline-sm text-primary mt-1">28%</span>
-              <span className="font-body-sm text-[11px] text-outline mt-0.5">135 adolescentes</span>
+              <span className="font-headline-sm text-headline-sm text-primary mt-1">
+                {data?.faixaEtaria.grupo3.percent || 0}%
+              </span>
+              <span className="font-body-sm text-[11px] text-outline mt-0.5">
+                {data?.faixaEtaria.grupo3.count || 0} alunos
+              </span>
             </div>
           </div>
 
@@ -392,17 +421,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           <div className="h-2 w-full rounded-full flex overflow-hidden gap-0.5 bg-surface-container">
             <div
               className="h-full bg-secondary-fixed-dim"
-              style={{ width: '28%' }}
+              style={{ width: `${data?.faixaEtaria.grupo1.percent || 0}%` }}
               title="06 a 09 anos"
             ></div>
             <div
               className="h-full bg-secondary"
-              style={{ width: '44%' }}
+              style={{ width: `${data?.faixaEtaria.grupo2.percent || 0}%` }}
               title="10 a 13 anos"
             ></div>
             <div
               className="h-full bg-primary-container"
-              style={{ width: '28%' }}
+              style={{ width: `${data?.faixaEtaria.grupo3.percent || 0}%` }}
               title="14 a 17 anos"
             ></div>
           </div>
@@ -428,8 +457,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         </div>
 
         <div className="rounded-xl bg-surface-container-lowest shadow-sm p-space-sm space-y-3">
-          {data?.atividadesRecentes ? (
-            data.atividadesRecentes.map((act) => (
+          {data ? (
+            data.atividadesRecentes.length > 0 ? data.atividadesRecentes.map((act) => (
               <div
                 key={act.id}
                 className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-surface-container-low transition-colors"
@@ -452,7 +481,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                   <span className="font-body-sm text-[11px] text-outline">{act.tempo}</span>
                 </div>
               </div>
-            ))
+            )) : (
+              <div className="py-4 text-center text-outline">Nenhuma atividade registrada.</div>
+            )
           ) : (
             <div className="py-4 text-center text-outline">Carregando atividades...</div>
           )}

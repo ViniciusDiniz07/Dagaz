@@ -17,58 +17,56 @@ interface FamilyRow {
 
 export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavigate }) => {
   // Stepper state (1 to 5)
-  const [currentStep, setCurrentStep] = useState<number>(3);
+  const [currentStep, setCurrentStep] = useState<number>(1);
 
   // Etapa 1: Dados Pessoais
-  const [nomeCompleto, setNomeCompleto] = useState('Gabriel Souza Ramos');
-  const [dataNascimento, setDataNascimento] = useState('2012-06-14');
-  const [calculatedAge, setCalculatedAge] = useState<number>(12);
-  const [cpf, setCpf] = useState('184.920.337-02');
-  const [rg, setRg] = useState('31.842.109-1 DETRAN/RJ');
-  const [etnia, setEtnia] = useState('parda');
+  const [nomeCompleto, setNomeCompleto] = useState('');
+  const [dataNascimento, setDataNascimento] = useState('');
+  const [calculatedAge, setCalculatedAge] = useState<number>(0);
+  const [cpf, setCpf] = useState('');
+  const [rg, setRg] = useState('');
+  const [etnia, setEtnia] = useState('');
 
   // Etapa 2: Escolaridade & NIS
-  const [nis, setNis] = useState('209.4318.990-4');
-  const [escola, setEscola] = useState('E. M. Prefeito Waldir de Carvalho');
-  const [serie, setSerie] = useState('7');
-  const [turnoEscolar, setTurnoEscolar] = useState<'manha' | 'tarde' | 'integral'>('tarde');
+  const [nis, setNis] = useState('');
+  const [escola, setEscola] = useState('');
+  const [serie, setSerie] = useState('');
+  const [turnoEscolar, setTurnoEscolar] = useState<'manha' | 'tarde' | 'integral' | ''>('');
 
   // Etapa 3: Ficha de Saúde & Cuidados
   const [hasPcd, setHasPcd] = useState(false);
   const [pcdDesc, setPcdDesc] = useState('');
-  const [hasChronic, setHasChronic] = useState(true);
-  const [chronicDesc, setChronicDesc] = useState('Asma leve induzida por esforço em dias secos');
-  const [hasMed, setHasMed] = useState(true);
-  const [medDesc, setMedDesc] = useState('Salbutamol spray 100mcg - apenas se houver crise respiratória');
-  const [healthNotes] = useState('Atestado médico de aptidão apresentado no ato da inscrição.');
+  const [hasChronic, setHasChronic] = useState(false);
+  const [chronicDesc, setChronicDesc] = useState('');
+  const [hasMed, setHasMed] = useState(false);
+  const [medDesc, setMedDesc] = useState('');
+  const [healthNotes] = useState('');
 
   // Etapa 4: Modalidades Esportivas
-  const [selectedSports, setSelectedSports] = useState<string[]>(['Judô', 'Capoeira', 'Futsal']);
+  const [sports, setSports] = useState<Array<{ id: string; nome: string; descricao?: string; icone?: string }>>([]);
+  const [selectedSports, setSelectedSports] = useState<string[]>([]);
 
   // Etapa 5: Responsável Legal
-  const [isNewGuardian, setIsNewGuardian] = useState(false);
-  const [guardianSearch, setGuardianSearch] = useState('');
-  const [guardianName, setGuardianName] = useState('Cláudia de Souza Ramos');
-  const [guardianKinship, setGuardianKinship] = useState('Mãe');
-  const [guardianPhone, setGuardianPhone] = useState('(24) 99214-5510');
-  const [guardianCpf, setGuardianCpf] = useState('109.319.447-22');
-  const [guardianAddress] = useState('Rua 16, Vila Rica, Volta Redonda/RJ');
-  const [guardianOccupation] = useState<'trabalho_formal' | 'informal' | 'esporadico' | 'desempregado' | 'aposentado_pensionista' | 'outro'>('informal');
-  const [guardianSchooling] = useState<'nenhuma' | 'fundamental' | 'medio' | 'superior_incompleto' | 'superior_completo'>('medio');
-  const [guardianIncomeRange, setGuardianIncomeRange] = useState<'ate_1_sm' | 'ate_2_sm' | 'ate_3_sm' | 'ate_4_sm' | 'acima_4_sm'>('ate_2_sm');
-  const [socialProgram] = useState(true);
-  const [socialProgramName] = useState('Bolsa Família');
+  const [isNewGuardian, setIsNewGuardian] = useState(true);
+  const [guardianName, setGuardianName] = useState('');
+  const [guardianKinship, setGuardianKinship] = useState('');
+  const [guardianPhone, setGuardianPhone] = useState('');
+  const [guardianCpf, setGuardianCpf] = useState('');
+  const [guardianAddress] = useState('');
+  const guardianOccupation = '';
+  const guardianSchooling = '';
+  const [guardianIncomeRange, setGuardianIncomeRange] = useState<
+    'ate_1_sm' | 'ate_2_sm' | 'ate_3_sm' | 'ate_4_sm' | 'acima_4_sm' | ''
+  >('');
+  const [socialProgram] = useState(false);
+  const [socialProgramName] = useState('');
 
   // Composição Familiar Dinâmica
-  const [familyMembers, setFamilyMembers] = useState<FamilyRow[]>([
-    { nome: 'Cláudia de Souza Ramos', parentesco: 'Mãe', idade: 38, escolaridade: 'Médio', profissao: 'Diarista', renda: 1412 },
-    { nome: 'Gabriel Souza Ramos', parentesco: 'Filho', idade: 12, escolaridade: 'Fundamental', profissao: 'Estudante', renda: 0 },
-    { nome: 'Matheus Souza Ramos', parentesco: 'Filho', idade: 6, escolaridade: 'Infantil', profissao: 'Estudante', renda: 0 },
-  ]);
+  const [familyMembers, setFamilyMembers] = useState<FamilyRow[]>([]);
 
   // Autorizações
-  const [imageAuth, setImageAuth] = useState(true);
-  const [declarationAuth, setDeclarationAuth] = useState(true);
+  const [imageAuth, setImageAuth] = useState(false);
+  const [declarationAuth, setDeclarationAuth] = useState(false);
 
   // UI Feedback
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -100,6 +98,16 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
         // Ignora rascunho corrompido
       }
     }
+  }, []);
+
+  useEffect(() => {
+    api
+      .listSports()
+      .then((res) => setSports(res.sports))
+      .catch((err) => {
+        console.error('Erro ao carregar modalidades:', err);
+        setToastMessage('Não foi possível carregar as modalidades.');
+      });
   }, []);
 
   const showToast = (msg: string) => {
@@ -181,6 +189,16 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
       return;
     }
 
+    if (!guardianName || !guardianCpf || !guardianPhone) {
+      alert('Preencha nome, CPF e telefone do responsável legal.');
+      return;
+    }
+
+    if (!declarationAuth) {
+      alert('Confirme a declaração de veracidade para continuar.');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       // Busca as modalidades cadastradas
@@ -188,18 +206,22 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
       const sportIds = sportsRes.sports
         .filter((sp) => selectedSports.includes(sp.nome))
         .map((sp) => sp.id);
+      if (sportIds.length === 0) {
+        alert('As modalidades selecionadas não estão disponíveis. Atualize a página e tente novamente.');
+        return;
+      }
 
       const payload = {
         nome_completo: nomeCompleto,
         data_nascimento: dataNascimento,
         cpf: cpf || null,
         rg: rg || null,
-        orgao_emissor: 'DETRAN/RJ',
+        orgao_emissor: null,
         nis: nis || null,
-        etnia,
+        etnia: etnia || null,
         escola: escola || null,
         serie: serie || null,
-        turno_escolar: turnoEscolar,
+        turno_escolar: turnoEscolar || null,
         saude: {
           possui_deficiencia: hasPcd,
           descricao_deficiencia: hasPcd ? pcdDesc : null,
@@ -208,18 +230,18 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
           utiliza_medicamento: hasMed,
           descricao_medicamento: hasMed ? medDesc : null,
           observacoes: healthNotes,
-          laudo_medico_apresentado: true,
+          laudo_medico_apresentado: false,
         },
-        modalidades_ids: sportIds.length > 0 ? sportIds : [sportsRes.sports[0]?.id],
+        modalidades_ids: sportIds,
         novo_responsavel: {
           nome_completo: guardianName,
           cpf: guardianCpf,
           telefone: guardianPhone,
-          endereco: guardianAddress,
-          parentesco: guardianKinship,
-          ocupacao: guardianOccupation,
-          escolaridade: guardianSchooling,
-          renda_familiar_faixa: guardianIncomeRange,
+          endereco: guardianAddress || null,
+          parentesco: guardianKinship || null,
+          ocupacao: guardianOccupation || null,
+          escolaridade: guardianSchooling || null,
+          renda_familiar_faixa: guardianIncomeRange || null,
           beneficiario_programa_social: socialProgram,
           programa_social: socialProgram ? socialProgramName : null,
         },
@@ -564,6 +586,7 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
                   onChange={(e) => setEtnia(e.target.value)}
                   className="w-full appearance-none px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary pr-10"
                 >
+                  <option value="">Selecione</option>
                   <option value="parda">Parda</option>
                   <option value="preta">Preta</option>
                   <option value="branca">Branca</option>
@@ -651,6 +674,7 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
                     onChange={(e) => setSerie(e.target.value)}
                     className="w-full appearance-none px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary pr-8"
                   >
+                    <option value="">Selecione</option>
                     <option value="4">4º Ano Fundamental</option>
                     <option value="5">5º Ano Fundamental</option>
                     <option value="6">6º Ano Fundamental</option>
@@ -670,9 +694,12 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
                 <div className="relative">
                   <select
                     value={turnoEscolar}
-                    onChange={(e) => setTurnoEscolar(e.target.value as any)}
+                    onChange={(e) =>
+                      setTurnoEscolar(e.target.value as 'manha' | 'tarde' | 'integral' | '')
+                    }
                     className="w-full appearance-none px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary pr-8"
                   >
+                    <option value="">Selecione</option>
                     <option value="manha">Manhã</option>
                     <option value="tarde">Tarde</option>
                     <option value="integral">Integral</option>
@@ -880,44 +907,7 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-            {[
-              {
-                nome: 'Capoeira',
-                horario: 'Manhã (Ter/Qui - 09h00)',
-                vagas: '4 vagas',
-                icone: 'sports_martial_arts',
-              },
-              {
-                nome: 'Treinamento Funcional',
-                horario: 'Tarde (Seg/Sex - 16h30)',
-                vagas: '8 vagas',
-                icone: 'fitness_center',
-              },
-              {
-                nome: 'Judô',
-                horario: 'Tarde (Seg/Qua - 15h00)',
-                vagas: '2 vagas',
-                icone: 'sports_kabaddi',
-              },
-              {
-                nome: 'Basquete 3x3',
-                horario: 'Manhã (Qua/Sex - 10h15)',
-                vagas: 'Fila espera',
-                icone: 'sports_basketball',
-              },
-              {
-                nome: 'Futsal',
-                horario: 'Manhã (Sábados - 08h30)',
-                vagas: 'Última vaga!',
-                icone: 'sports_soccer',
-              },
-              {
-                nome: 'Futevôlei',
-                horario: 'Tarde (Sábados - 14h00)',
-                vagas: '5 vagas',
-                icone: 'sports_volleyball',
-              },
-            ].map((sport) => {
+            {sports.length > 0 ? sports.map((sport) => {
               const isChecked = selectedSports.includes(sport.nome);
               return (
                 <div
@@ -937,14 +927,16 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
                           : 'bg-surface-container text-on-surface'
                       }`}
                     >
-                      <span className="material-symbols-outlined text-[19px]">{sport.icone}</span>
+                      <span className="material-symbols-outlined text-[19px]">
+                        {sport.icone || 'sports'}
+                      </span>
                     </div>
                     <div>
                       <p className="font-label-lg text-label-lg text-primary font-bold">
                         {sport.nome}
                       </p>
                       <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        {sport.horario}
+                        {sport.descricao || 'Modalidade disponível'}
                       </p>
                     </div>
                   </div>
@@ -958,17 +950,14 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
                     >
                       <span className="material-symbols-outlined text-[16px]">check</span>
                     </div>
-                    <span
-                      className={`text-[10px] ${
-                        isChecked ? 'font-semibold text-tertiary-container' : 'font-medium text-outline'
-                      }`}
-                    >
-                      {sport.vagas}
-                    </span>
                   </div>
                 </div>
               );
-            })}
+            }) : (
+              <p className="col-span-full py-4 text-center text-on-surface-variant">
+                Nenhuma modalidade disponível para seleção.
+              </p>
+            )}
           </div>
         </div>
 
@@ -1048,9 +1037,20 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
                   <label className="block text-[11px] font-semibold text-primary mb-1">Faixa de Renda</label>
                   <select
                     value={guardianIncomeRange}
-                    onChange={(e) => setGuardianIncomeRange(e.target.value as any)}
+                    onChange={(e) =>
+                      setGuardianIncomeRange(
+                        e.target.value as
+                          | 'ate_1_sm'
+                          | 'ate_2_sm'
+                          | 'ate_3_sm'
+                          | 'ate_4_sm'
+                          | 'acima_4_sm'
+                          | ''
+                      )
+                    }
                     className="w-full px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface text-body-md"
                   >
+                    <option value="">Não informado</option>
                     <option value="ate_1_sm">Até 01 Salário Mínimo</option>
                     <option value="ate_2_sm">Até 02 Salários Mínimos</option>
                     <option value="ate_3_sm">Até 03 Salários Mínimos</option>
@@ -1061,59 +1061,9 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
               </div>
             </div>
           ) : (
-            <>
-              {/* Barra de Busca Rápida de Responsável */}
-              <div className="relative">
-                <input
-                  type="text"
-                  value={guardianSearch}
-                  onChange={(e) => setGuardianSearch(e.target.value)}
-                  placeholder="Buscar responsável por CPF ou Nome..."
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary transition-all"
-                />
-                <span className="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">
-                  search
-                </span>
-              </div>
-
-              {/* Card do Responsável Selecionado */}
-              <div className="p-3.5 rounded-xl bg-surface-container-low flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="relative">
-                    <img
-                      alt="Responsável"
-                      className="w-12 h-12 rounded-full object-cover shadow-sm"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpCrlbE2lOswC8StAOdsVmSUPpH5iKltfoB7uqyYc626NLZucAcB7ZBpFx1VFYBxSYgkRyun_FU6jT3NFI6WMBWmy5dS25gq2KEzNuwDk5PjBleD5Y3JBHjMpG3hUYzbMurin1GxErWMah4gJl6-PcUQ8gphi4v10JXosKi7oeCTDTYlk2Dnkx-q-pTeNoAjV6JHHoj_rDurhSK4rV1fPUwjbOXHYkrdVnXerI53Y"
-                    />
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
-                      <span className="material-symbols-outlined text-[12px] font-bold">verified</span>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-label-lg text-label-lg text-primary font-bold">
-                        {guardianName}
-                      </h3>
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary text-on-primary">
-                        {guardianKinship}
-                      </span>
-                    </div>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
-                      <span className="material-symbols-outlined text-[14px]">call</span>
-                      {guardianPhone} • CPF: ***.319.447-**
-                    </p>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setIsNewGuardian(true)}
-                  className="w-9 h-9 rounded-lg bg-surface-container text-on-surface-variant hover:text-error flex items-center justify-center transition-colors"
-                  title="Trocar Responsável"
-                >
-                  <span className="material-symbols-outlined text-[18px]">swap_horiz</span>
-                </button>
-              </div>
-            </>
+            <div role="status" className="p-3 rounded-lg bg-surface-container-low text-on-surface-variant">
+              A busca de responsáveis cadastrados ainda não está disponível. Cadastre um novo responsável para continuar.
+            </div>
           )}
 
           {/* Tabela Dinâmica: Residentes no Domicílio */}

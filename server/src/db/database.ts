@@ -51,6 +51,10 @@ const memoryDb: InMemoryDb = {
 };
 
 export async function initDatabase(): Promise<void> {
+  if (!env.SUPABASE_DB_URL && env.NODE_ENV === 'production') {
+    throw new Error('SUPABASE_DB_URL é obrigatória em produção.');
+  }
+
   if (env.SUPABASE_DB_URL) {
     try {
       pool = new Pool({
@@ -66,13 +70,16 @@ export async function initDatabase(): Promise<void> {
       logger.info('Conectado com sucesso ao banco PostgreSQL/Supabase.');
       return;
     } catch (err) {
-      logger.error('Falha ao conectar ao PostgreSQL remoto. Ativando repositório resiliente local:', err);
+      logger.error('Falha ao conectar ao PostgreSQL/Supabase:', err);
+      if (env.NODE_ENV === 'production') {
+        throw err;
+      }
     }
   }
 
-  // Se não houver SUPABASE_DB_URL ou falhar, inicializa o repositório em memória estruturado com seed data
+  // O repositório em memória com dados de demonstração é usado apenas no desenvolvimento local.
   isPostgres = false;
-  logger.info('Inicializando repositório de dados local com sementes oficiais do Projeto Esporte Dagaz...');
+  logger.info('PostgreSQL ausente; inicializando repositório de demonstração para desenvolvimento local.');
   await populateLocalSeedData();
 }
 
@@ -634,4 +641,5 @@ function executeInMemoryQuery<T>(sql: string, params: any[]): QueryResult<T> {
 // Funções de acesso direto a dados consolidados
 export const dbAccess = {
   getMemoryDb: () => memoryDb,
+  isPostgres: () => isPostgres,
 };

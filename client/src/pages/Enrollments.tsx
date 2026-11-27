@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api.js';
-import { Student } from '../types/index.js';
+import { Sport, Student } from '../types/index.js';
 import { StudentDossierModal } from '../components/StudentDossierModal.js';
 
 interface EnrollmentsProps {
@@ -10,15 +10,16 @@ interface EnrollmentsProps {
 export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
+  const [sports, setSports] = useState<Sport[]>([]);
   const [search, setSearch] = useState('');
   const [selectedModality, setSelectedModality] = useState('Todos');
   const [selectedStatus, setSelectedStatus] = useState('Ativas');
-  const [activeCycle, setActiveCycle] = useState('2025');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [totalStudentsCount, setTotalStudentsCount] = useState(518);
+  const [totalStudentsCount, setTotalStudentsCount] = useState(0);
   const [selectedStudentForModal, setSelectedStudentForModal] = useState<string | null>(null);
   const [actionSuccessMessage, setActionSuccessMessage] = useState<string | null>(null);
+  const activeCycle = new Date().getFullYear();
 
   const fetchStudents = async () => {
     setLoading(true);
@@ -58,6 +59,13 @@ export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
     fetchStudents();
   }, [search, selectedModality, selectedStatus, page]);
 
+  useEffect(() => {
+    api
+      .listSports()
+      .then((res) => setSports(res.sports))
+      .catch((err) => console.error('Erro ao carregar modalidades:', err));
+  }, []);
+
   const handleReactivate = async (student: Student) => {
     try {
       const enrollment = student.todas_matriculas?.[0];
@@ -79,7 +87,10 @@ export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
         const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(data, null, 2))}`;
         const downloadAnchor = document.createElement('a');
         downloadAnchor.setAttribute('href', jsonString);
-        downloadAnchor.setAttribute('download', 'matriculas_dagaz_2025.json');
+        downloadAnchor.setAttribute(
+          'download',
+          `matriculas_dagaz_${new Date().getFullYear()}.json`
+        );
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
         downloadAnchor.remove();
@@ -139,19 +150,8 @@ export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
             <span className="material-symbols-outlined text-[20px]">add_circle</span>
             <span>+ Nova Matrícula</span>
           </button>
-          <div className="relative">
-            <select
-              value={activeCycle}
-              onChange={(e) => setActiveCycle(e.target.value)}
-              className="w-full h-11 pl-3 pr-8 bg-surface-container text-on-surface font-label-md text-label-md rounded-lg appearance-none font-medium focus:outline-none"
-            >
-              <option value="2025">Ciclo Esportivo 2025</option>
-              <option value="2024">Ciclo Esportivo 2024</option>
-              <option value="verao">Colônia de Verão</option>
-            </select>
-            <span className="material-symbols-outlined text-[18px] text-on-surface-variant absolute right-2.5 top-3 pointer-events-none">
-              expand_more
-            </span>
+          <div className="h-11 flex items-center justify-center rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-medium">
+            Ano {activeCycle}
           </div>
         </div>
       </section>
@@ -194,15 +194,7 @@ export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
           className="flex items-center gap-2 overflow-x-auto py-1 -mx-margin-mobile px-margin-mobile no-scrollbar"
           style={{ scrollbarWidth: 'none' }}
         >
-          {[
-            { label: 'Todos', count: '518' },
-            { label: 'Judô', count: '96' },
-            { label: 'Futsal', count: '132' },
-            { label: 'Capoeira', count: '84' },
-            { label: 'Basquete 3x3', count: '68' },
-            { label: 'Funcional', count: '72' },
-            { label: 'Futevôlei', count: '66' },
-          ].map((item) => (
+          {[{ label: 'Todos' }, ...sports.map((sport) => ({ label: sport.nome }))].map((item) => (
             <button
               key={item.label}
               type="button"
@@ -214,13 +206,6 @@ export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
               }`}
             >
               <span>{item.label}</span>
-              <span
-                className={`px-1.5 py-0.2 rounded-full text-[10px] ${
-                  selectedModality === item.label ? 'bg-on-secondary/20' : 'bg-surface-container'
-                }`}
-              >
-                {item.count}
-              </span>
             </button>
           ))}
         </div>
@@ -231,23 +216,18 @@ export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
           style={{ scrollbarWidth: 'none' }}
         >
           <span className="font-label-sm text-label-sm text-outline px-1 shrink-0">Status:</span>
-          {[
-            { label: 'Ativas', count: '435' },
-            { label: 'Aguardando Vaga', count: '32' },
-            { label: 'Trancadas', count: '21' },
-            { label: 'Canceladas', count: '30' },
-          ].map((st) => (
+          {['Ativas', 'Aguardando Vaga', 'Trancadas', 'Canceladas'].map((label) => (
             <button
-              key={st.label}
+              key={label}
               type="button"
-              onClick={() => setSelectedStatus(st.label)}
+              onClick={() => setSelectedStatus(label)}
               className={`px-2.5 py-1 rounded-lg font-label-sm text-label-sm shrink-0 transition-colors ${
-                selectedStatus === st.label
+                selectedStatus === label
                   ? 'bg-surface-container-high text-on-primary-fixed font-semibold'
                   : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container'
               }`}
             >
-              {st.label} ({st.count})
+              {label}
             </button>
           ))}
         </div>
@@ -295,16 +275,23 @@ export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <div className="relative shrink-0">
-                      <img
-                        alt={student.nome_completo}
-                        className={`w-12 h-12 rounded-full object-cover shadow-sm ${
-                          isTrancada ? 'grayscale-[30%]' : ''
-                        }`}
-                        src={
-                          student.foto_url ||
-                          'https://lh3.googleusercontent.com/aida-public/AB6AXuAVvDTAxLxeODW44EobujUHpS15WRLFYjc12zgEPvoaJnQdWJ03c9YLWJNvLHDu_BdzOXLPdVRhX-hTNg5x6ZNzUG5MhQgtPWVF9ZSUe5UBNbvYE8W4tMFwT1Nr8qwsErSdu7l0OZwTOD8TPwUMUdjWyTvlcWlapfAtohl0SMp73oCebdqsWN-l2fmXwjpULbpIB8YQ0D8Eyz7f6zEi5EuOupHTpabkP7fRAYYs_V0'
-                        }
-                      />
+                      {student.foto_url ? (
+                        <img
+                          alt=""
+                          className={`w-12 h-12 rounded-full object-cover shadow-sm ${
+                            isTrancada ? 'grayscale-[30%]' : ''
+                          }`}
+                          src={student.foto_url}
+                        />
+                      ) : (
+                        <div
+                          className={`w-12 h-12 rounded-full bg-surface-container flex items-center justify-center ${
+                            isTrancada ? 'grayscale-[30%]' : ''
+                          }`}
+                        >
+                          <span className="material-symbols-outlined text-[28px] text-outline">person</span>
+                        </div>
+                      )}
                       <span
                         className={`absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full ring-2 ring-surface-container-lowest ${
                           isTrancada
@@ -411,7 +398,9 @@ export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
                       </span>
                       Resp.:{' '}
                       <strong className="text-on-surface font-semibold">
-                        {student.responsavel?.nome} ({student.responsavel?.parentesco})
+                        {student.responsavel
+                          ? `${student.responsavel.nome} (${student.responsavel.parentesco})`
+                          : 'Sem responsável informado'}
                       </strong>
                     </span>
                     {student.responsavel?.telefone && (
@@ -426,11 +415,26 @@ export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
                   </div>
                   <div className="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
                     <span>
-                      Início em: <strong>{student.data_nascimento ? '12/02/2025' : '-'}</strong>
+                      Início em:{' '}
+                      <strong>
+                        {student.todas_matriculas?.[0]?.data_matricula
+                          ? new Date(
+                              `${student.todas_matriculas[0].data_matricula}T00:00:00`
+                            ).toLocaleDateString('pt-BR')
+                          : '-'}
+                      </strong>
                     </span>
-                    <span className="text-on-tertiary-container font-medium flex items-center gap-0.5">
-                      <span className="material-symbols-outlined text-[14px]">check_circle</span>
-                      Ficha Médica Ok
+                    <span
+                      className={`font-medium flex items-center gap-0.5 ${
+                        student.saude?.laudo_ok
+                          ? 'text-on-tertiary-container'
+                          : 'text-on-surface-variant'
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-[14px]">
+                        {student.saude?.laudo_ok ? 'check_circle' : 'info'}
+                      </span>
+                      {student.saude?.laudo_ok ? 'Ficha médica ok' : 'Ficha médica não confirmada'}
                     </span>
                   </div>
                 </div>

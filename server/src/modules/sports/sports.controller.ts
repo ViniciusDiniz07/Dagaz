@@ -1,7 +1,20 @@
 import { Request, Response } from 'express';
-import { dbAccess } from '../../db/database.js';
+import { dbAccess, query } from '../../db/database.js';
 
 export async function listSports(_req: Request, res: Response): Promise<void> {
+  if (dbAccess.isPostgres()) {
+    const result = await query(`
+      SELECT s.*, COUNT(e.id)::int AS "totalAlunos"
+      FROM sports s
+      LEFT JOIN enrollments e ON e.sports_id = s.id AND e.status = 'ativa'
+      WHERE s.ativo = TRUE
+      GROUP BY s.id
+      ORDER BY s.nome
+    `);
+    res.json({ sports: result.rows });
+    return;
+  }
+
   const db = dbAccess.getMemoryDb();
   const sports = db.sports.filter((s) => s.ativo);
 
@@ -18,6 +31,32 @@ export async function listSports(_req: Request, res: Response): Promise<void> {
 }
 
 export async function listClasses(req: Request, res: Response): Promise<void> {
+  if (dbAccess.isPostgres()) {
+    const params: string[] = [];
+    let sportFilter = '';
+    if (typeof req.query.sportId === 'string' && req.query.sportId.trim()) {
+      params.push(req.query.sportId.trim());
+      sportFilter = 'AND c.sports_id = $1';
+    }
+
+    const result = await query(
+      `
+        SELECT c.*, s.nome AS "sportNome",
+          COUNT(e.id)::int AS "vagasOcupadas",
+          GREATEST(0, c.capacidade - COUNT(e.id)::int) AS "vagasRestantes"
+        FROM classes c
+        JOIN sports s ON s.id = c.sports_id
+        LEFT JOIN enrollments e ON e.class_id = c.id AND e.status = 'ativa'
+        WHERE c.ativo = TRUE ${sportFilter}
+        GROUP BY c.id, s.nome
+        ORDER BY s.nome, c.nome
+      `,
+      params
+    );
+    res.json({ classes: result.rows });
+    return;
+  }
+
   const db = dbAccess.getMemoryDb();
   let classes = db.classes.filter((c) => c.ativo);
 

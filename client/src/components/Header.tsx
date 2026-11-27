@@ -68,14 +68,11 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           <div className="relative ml-1">
-            <img
-              alt="Profile"
-              className="w-8 h-8 rounded-full object-cover"
-              src={
-                user?.avatarUrl ||
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuBChBO9tG8PRhqI1ug191m9AREUAfREBjJoA_WvoDxQWji50XhMASMaLzu0MnMN5bBEPZnuY6XwqKxutBmFQu8B1LSq51YgtE_3XgeaF4fHrpximG3jvVJOZwbSuKMOgA1k2E79uvN3_4Cg3zn1GxaODsA8rx63Xw8GkCApwYaf8OIblvv_i6EB0MFCfdxUPMIT2kRyqUBcjpMkDt5BnD8VVLrahJ1rMoJNV0gw9BE'
-              }
-            />
+            {user?.avatarUrl ? (
+              <img alt="" className="w-8 h-8 rounded-full object-cover" src={user.avatarUrl} />
+            ) : (
+              <span className="material-symbols-outlined text-[32px] text-outline">account_circle</span>
+            )}
             <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-on-tertiary-container rounded-full ring-2 ring-surface"></span>
           </div>
         </div>

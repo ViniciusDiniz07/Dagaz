@@ -17,7 +17,7 @@ export function getGeminiClient(): GoogleGenAI | null {
       logger.error('Erro ao instanciar GoogleGenAI:', err);
     }
   } else {
-    logger.warn('GEMINI_API_KEY não configurada no ambiente. Modo de simulação assistida ativo para testes locais.');
+    logger.warn('GEMINI_API_KEY não configurada no ambiente. OCR automático indisponível.');
   }
 
   return geminiClient;

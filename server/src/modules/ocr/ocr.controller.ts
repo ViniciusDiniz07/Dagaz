@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import crypto from 'crypto';
 import fs from 'fs';
-import path from 'path';
-import { dbAccess } from '../../db/database.js';
+import { dbAccess, query, withTransaction } from '../../db/database.js';
 import { getGeminiClient, OCR_SYSTEM_PROMPT } from '../../config/gemini.js';
 import { logger } from '../../utils/logger.js';
 
@@ -20,76 +19,82 @@ export async function extractDocument(req: Request, res: Response): Promise<void
   logger.info(`Processando documento OCR: ${file.originalname} (${file.mimetype}, ${(file.size / 1024).toFixed(1)} KB)`);
 
   const docId = crypto.randomUUID();
-  const db = dbAccess.getMemoryDb();
 
   let extractedData: any = null;
-  let generalConfidence = 96.0;
+  let generalConfidence = 0;
   const gemini = getGeminiClient();
 
-  if (gemini) {
-    try {
-      const fileBuffer = fs.readFileSync(file.path);
-      const base64Data = fileBuffer.toString('base64');
+  if (!gemini) {
+    logger.error('OCR indisponível: configure a chave do Google Gemini no servidor.');
+    await removeTemporaryFile(file.path);
+    res.status(503).json({
+      error: 'OCR indisponível',
+      message: 'A leitura automática não está configurada. Entre em contato com o administrador.',
+    });
+    return;
+  }
 
-      logger.info('Enviando documento para a API do Google Gemini com system prompt estruturado...');
+  try {
+    const fileBuffer = fs.readFileSync(file.path);
+    const base64Data = fileBuffer.toString('base64');
 
-      // Chama a API oficial do Google Gemini com suporte multimodal
-      const response = await gemini.interactions.create({
-        model: 'gemini-4-hydrogen',
-        input: [
-          {
-            type: 'text',
-            text: OCR_SYSTEM_PROMPT,
-          },
-          {
-            type: 'image',
-            data: base64Data,
-            mime_type: file.mimetype,
-          },
-        ],
-        response_format: { type: 'json_object' },
-      });
+    logger.info('Enviando documento para a API do Google Gemini com system prompt estruturado...');
 
-      const responseText = response.output_text || '';
-      logger.info('Resposta recebida do Google Gemini. Validando JSON...');
+    const response = await gemini.interactions.create({
+      model: 'gemini-4-hydrogen',
+      input: [
+        {
+          type: 'text',
+          text: OCR_SYSTEM_PROMPT,
+        },
+        {
+          type: 'image',
+          data: base64Data,
+          mime_type: file.mimetype,
+        },
+      ],
+      response_format: { type: 'json_object' },
+    });
 
-      // Limpa possíveis blocos markdown ```json ... ``` se existirem
-      const cleanJson = responseText.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
-      extractedData = JSON.parse(cleanJson);
-      generalConfidence = extractedData.general_confidence || 95.0;
-    } catch (apiError) {
-      logger.error('Erro na chamada ao Gemini API. Ativando fallback resiliente de extração:', apiError);
-      // Se a API externa falhar ou atingir cota, utiliza o extrator de segurança estruturado
-      extractedData = generateFidelityExtraction(file.originalname);
-    }
-  } else {
-    // Sem chave configurada: utiliza o extrator de alta fidelidade para testes locais imediatos
-    logger.info('Modo de demonstração de IA ativo. Processando documento localmente com modelo de referência Dagaz...');
-    extractedData = generateFidelityExtraction(file.originalname);
+    const responseText = response.output_text || '';
+    logger.info('Resposta recebida do Google Gemini. Validando JSON...');
+
+    const cleanJson = responseText.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
+    extractedData = JSON.parse(cleanJson);
+    const parsedConfidence = Number(extractedData.general_confidence);
+    generalConfidence = Number.isFinite(parsedConfidence) ? parsedConfidence : 0;
+  } catch (apiError) {
+    logger.error('Erro ao extrair dados do documento com a API do Google Gemini:', apiError);
+    await removeTemporaryFile(file.path);
+    res.status(502).json({
+      error: 'Falha no OCR',
+      message: 'Não foi possível ler o documento. Tente novamente ou preencha os dados manualmente.',
+    });
+    return;
   }
 
   // Registra o documento na tabela digitized_documents
-  const digitizedDoc = {
-    id: docId,
-    student_id: null,
-    arquivo_nome: file.originalname,
-    arquivo_tipo: file.mimetype,
-    arquivo_tamanho: file.size,
-    arquivo_caminho: `/uploads/${file.filename}`,
-    status_processamento: 'pendente_revisao',
-    confianca_geral: generalConfidence,
-    dados_extraidos: extractedData,
-    revisado_por: null,
-    revisado_em: null,
-    notas_revisao: null,
-    created_at: new Date().toISOString(),
-  };
-
-  db.digitized_documents.push(digitizedDoc);
+  await query(
+    `INSERT INTO digitized_documents
+       (id, student_id, arquivo_nome, arquivo_tipo, arquivo_tamanho, arquivo_caminho,
+        status_processamento, confianca_geral, dados_extraidos)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+    [
+      docId,
+      null,
+      file.originalname,
+      file.mimetype,
+      file.size,
+      `/uploads/${file.filename}`,
+      'pendente',
+      generalConfidence,
+      JSON.stringify(extractedData),
+    ]
+  );
 
   res.json({
     documentId: docId,
-    status: 'pendente_revisao',
+    status: 'pendente',
     confianca_geral: generalConfidence,
     dados: extractedData,
     arquivo: {
@@ -101,11 +106,42 @@ export async function extractDocument(req: Request, res: Response): Promise<void
   });
 }
 
+async function removeTemporaryFile(filePath: string): Promise<void> {
+  try {
+    await fs.promises.unlink(filePath);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+      logger.error('Não foi possível remover o arquivo temporário de OCR:', error);
+    }
+  }
+}
+
+function getExtractedValue(data: any, field: string): string | null {
+  const value = data?.[field]?.value;
+  return typeof value === 'string' && value.trim() ? value.trim() : null;
+}
+
+function normalizeBirthDate(value: string | null): string | null {
+  if (!value) return null;
+
+  let normalized = value;
+  const brazilianDate = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(value);
+  if (brazilianDate) {
+    normalized = `${brazilianDate[3]}-${brazilianDate[2]}-${brazilianDate[1]}`;
+  }
+
+  const isoDate = /^(\d{4})-(\d{2})-(\d{2})$/.exec(normalized);
+  if (!isoDate) return null;
+  const parsed = new Date(`${normalized}T00:00:00Z`);
+  return Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== normalized
+    ? null
+    : normalized;
+}
+
 export async function getDocumentById(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
-  const db = dbAccess.getMemoryDb();
-
-  const doc = db.digitized_documents.find((d) => d.id === id);
+  const result = await query('SELECT * FROM digitized_documents WHERE id = $1', [id]);
+  const doc = result.rows[0];
   if (!doc) {
     res.status(404).json({ error: 'Documento digitalizado não encontrado' });
     return;
@@ -117,9 +153,8 @@ export async function getDocumentById(req: Request, res: Response): Promise<void
 export async function confirmDocument(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
   const { dadosRevisados, notas } = req.body;
-  const db = dbAccess.getMemoryDb();
-
-  const doc = db.digitized_documents.find((d) => d.id === id);
+  const documentResult = await query('SELECT * FROM digitized_documents WHERE id = $1', [id]);
+  const doc = documentResult.rows[0];
   if (!doc) {
     res.status(404).json({ error: 'Documento não encontrado' });
     return;
@@ -129,200 +164,314 @@ export async function confirmDocument(req: Request, res: Response): Promise<void
   const studentData = data.student || {};
   const guardianData = data.guardian || {};
   const healthData = data.health || {};
-  const modalities = data.modalities || [];
+  const studentName = getExtractedValue(studentData, 'name');
+  const birthDate = normalizeBirthDate(getExtractedValue(studentData, 'birth_date'));
+  const guardianName = getExtractedValue(guardianData, 'name');
+  const guardianCpf = getExtractedValue(guardianData, 'cpf');
+  const guardianPhone = getExtractedValue(guardianData, 'phone');
+  const guardianCpfDigits = guardianCpf?.replace(/\D/g, '') || '';
 
-  // 1. Cria ou atualiza o responsável
-  let guardian = db.guardians.find((g) => guardianData.cpf?.value && g.cpf.replace(/\D/g, '') === guardianData.cpf.value.replace(/\D/g, ''));
-  if (!guardian) {
-    guardian = {
-      id: crypto.randomUUID(),
-      nome_completo: guardianData.name?.value || 'Responsável Legal',
-      cpf: guardianData.cpf?.value || '000.000.000-00',
-      rg: guardianData.rg?.value || null,
-      nis: guardianData.nis?.value || null,
-      telefone: guardianData.phone?.value || '(24) 99999-0000',
-      email: guardianData.email?.value || null,
-      endereco: guardianData.address?.value || null,
-      numero: guardianData.number?.value || null,
-      bairro: guardianData.neighborhood?.value || null,
-      cidade: guardianData.city?.value || 'Volta Redonda',
-      cep: guardianData.cep?.value || null,
-      parentesco: guardianData.relationship?.value || 'Mãe',
-      ocupacao: 'informal',
-      escolaridade: 'medio',
-      renda_familiar_faixa: 'ate_2_sm',
-      beneficiario_programa_social: !!guardianData.social_program?.value,
-      programa_social: guardianData.social_program?.value || null,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
-    db.guardians.push(guardian);
+  if (!studentName || !birthDate || !guardianName || guardianCpfDigits.length !== 11 || !guardianPhone) {
+    res.status(400).json({
+      error: 'Dados obrigatórios ausentes',
+      message: 'Confira o nome e nascimento do aluno e o nome, CPF e telefone do responsável.',
+    });
+    return;
   }
 
-  // 2. Cria o aluno
+  const modalities = Array.isArray(data.modalities) ? data.modalities : [];
+  const checkedModalities = modalities.filter((modality: any) => modality?.checked && modality?.name);
   const studentId = crypto.randomUUID();
-  const matriculaNumero = `2025-${Math.floor(100 + Math.random() * 900)}`;
+  const matriculaNumero = `${new Date().getFullYear()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+  const now = new Date().toISOString();
+  const relationship = getExtractedValue(guardianData, 'relationship') || 'Responsável';
+  let newStudent: Record<string, unknown>;
+  let createdEnrollmentsCount = 0;
 
-  const newStudent = {
-    id: studentId,
-    matricula_numero: matriculaNumero,
-    nome_completo: studentData.name?.value || 'Aluno Cadastrado via OCR',
-    data_nascimento: studentData.birth_date?.value || '2013-05-14',
-    cpf: studentData.cpf?.value || null,
-    rg: studentData.rg?.value || null,
-    orgao_emissor: studentData.orgao_emissor?.value || 'DETRAN/RJ',
-    nis: studentData.nis?.value || null,
-    etnia: studentData.ethnicity?.value || 'parda',
-    escola: studentData.school?.value || 'E.M. Professora Maria José',
-    serie: studentData.grade?.value || '7º Ano',
-    turno_escolar: 'tarde',
-    status: 'ativo',
-    foto_url: null,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  };
-
-  db.students.push(newStudent);
-
-  // 3. Vincula Aluno e Responsável
-  db.student_guardians.push({
-    id: crypto.randomUUID(),
-    student_id: studentId,
-    guardian_id: guardian.id,
-    parentesco: guardianData.relationship?.value || 'Mãe',
-    responsavel_legal: true,
-    principal: true,
-    created_at: new Date().toISOString(),
-  });
-
-  // 4. Cria Prontuário de Saúde
-  db.health_records.push({
-    id: crypto.randomUUID(),
-    student_id: studentId,
-    possui_deficiencia: healthData.has_disability?.value || false,
-    descricao_deficiencia: healthData.disability_description?.value || null,
-    possui_doenca_cronica: healthData.has_chronic_disease?.value || false,
-    descricao_doenca: healthData.chronic_disease_description?.value || null,
-    utiliza_medicamento: healthData.uses_controlled_medication?.value || false,
-    descricao_medicamento: healthData.medication_description?.value || null,
-    observacoes: healthData.health_notes?.value || 'Conferido da ficha física original',
-    laudo_medico_apresentado: true,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  });
-
-  // 5. Matricula nas modalidades assinaladas
-  const createdEnrollments = [];
-  for (const m of modalities) {
-    if (m.checked) {
-      const sport = db.sports.find((sp) => sp.nome.toLowerCase() === m.name.toLowerCase());
-      if (sport) {
-        const defaultClass = db.classes.find((c) => c.sports_id === sport.id && c.ativo);
-        const enrollment = {
-          id: crypto.randomUUID(),
-          student_id: studentId,
-          sports_id: sport.id,
-          class_id: defaultClass ? defaultClass.id : null,
-          status: 'ativa',
-          data_matricula: new Date().toISOString().split('T')[0],
-          observacoes: 'Matrícula originada de ficha física digitalizada por IA (Gemini).',
-          created_at: new Date().toISOString(),
-        };
-        db.enrollments.push(enrollment);
-        createdEnrollments.push(enrollment);
+  if (dbAccess.isPostgres()) {
+    const result = await withTransaction(async (client) => {
+      const lockedDocument = await client.query(
+        'SELECT id, status_processamento FROM digitized_documents WHERE id = $1 FOR UPDATE',
+        [id]
+      );
+      if (!lockedDocument.rows[0]) return null;
+      if (lockedDocument.rows[0].status_processamento === 'revisado') {
+        return { alreadyReviewed: true as const };
       }
+
+      const existingGuardian = await client.query<{ id: string }>(
+        `SELECT id FROM guardians
+         WHERE regexp_replace(cpf, '[^0-9]', '', 'g') = $1
+         LIMIT 1`,
+        [guardianCpfDigits]
+      );
+      let guardianId = existingGuardian.rows[0]?.id;
+
+      if (!guardianId) {
+        const guardianResult = await client.query<{ id: string }>(
+          `INSERT INTO guardians
+             (id, nome_completo, cpf, rg, nis, telefone, endereco, parentesco,
+              beneficiario_programa_social, programa_social)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+           RETURNING id`,
+          [
+            crypto.randomUUID(),
+            guardianName,
+            guardianCpf,
+            getExtractedValue(guardianData, 'rg'),
+            getExtractedValue(guardianData, 'nis'),
+            guardianPhone,
+            getExtractedValue(guardianData, 'address'),
+            relationship,
+            Boolean(getExtractedValue(guardianData, 'social_program')),
+            getExtractedValue(guardianData, 'social_program'),
+          ]
+        );
+        guardianId = guardianResult.rows[0].id;
+      }
+
+      const ethnicity = getExtractedValue(studentData, 'ethnicity');
+      const allowedEthnicities = new Set([
+        'branca',
+        'preta',
+        'parda',
+        'amarela',
+        'indigena',
+        'nao_declarado',
+      ]);
+      const studentResult = await client.query(
+        `INSERT INTO students
+           (id, matricula_numero, nome_completo, data_nascimento, cpf, rg, orgao_emissor,
+            nis, etnia, escola, serie, turno_escolar, status)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, 'ativo')
+         RETURNING *`,
+        [
+          studentId,
+          matriculaNumero,
+          studentName,
+          birthDate,
+          getExtractedValue(studentData, 'cpf'),
+          getExtractedValue(studentData, 'rg'),
+          getExtractedValue(studentData, 'orgao_emissor'),
+          getExtractedValue(studentData, 'nis'),
+          ethnicity && allowedEthnicities.has(ethnicity) ? ethnicity : null,
+          getExtractedValue(studentData, 'school'),
+          getExtractedValue(studentData, 'grade'),
+          getExtractedValue(studentData, 'turno_escolar'),
+        ]
+      );
+
+      await client.query(
+        `INSERT INTO student_guardians
+           (student_id, guardian_id, parentesco, responsavel_legal, principal)
+         VALUES ($1, $2, $3, TRUE, TRUE)`,
+        [studentId, guardianId, relationship]
+      );
+      await client.query(
+        `INSERT INTO health_records
+           (student_id, possui_deficiencia, descricao_deficiencia, possui_doenca_cronica,
+            descricao_doenca, utiliza_medicamento, descricao_medicamento, observacoes,
+            laudo_medico_apresentado)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, FALSE)`,
+        [
+          studentId,
+          healthData.has_disability?.value === true,
+          getExtractedValue(healthData, 'disability_description'),
+          healthData.has_chronic_disease?.value === true,
+          getExtractedValue(healthData, 'chronic_disease_description'),
+          healthData.uses_controlled_medication?.value === true,
+          getExtractedValue(healthData, 'medication_description'),
+          getExtractedValue(healthData, 'health_notes'),
+        ]
+      );
+
+      let enrollmentCount = 0;
+      for (const modality of checkedModalities) {
+        const sportResult = await client.query<{ id: string }>(
+          'SELECT id FROM sports WHERE LOWER(nome) = LOWER($1) AND ativo = TRUE LIMIT 1',
+          [modality.name]
+        );
+        const sportId = sportResult.rows[0]?.id;
+        if (!sportId) continue;
+
+        await client.query(
+          `INSERT INTO enrollments (student_id, sports_id, status, observacoes)
+           VALUES ($1, $2, 'ativa', $3)`,
+          [studentId, sportId, 'Matrícula originada de ficha digitalizada e revisada.']
+        );
+        enrollmentCount++;
+      }
+
+      await client.query(
+        `UPDATE digitized_documents
+         SET student_id = $1, status_processamento = 'revisado', revisado_por = $2,
+             revisado_em = NOW(), notas_revisao = $3
+         WHERE id = $4`,
+        [studentId, req.user?.userId || null, notas || null, id]
+      );
+
+      return {
+        alreadyReviewed: false as const,
+        student: studentResult.rows[0],
+        enrollmentCount,
+      };
+    });
+
+    if (!result) {
+      res.status(404).json({ error: 'Documento não encontrado' });
+      return;
     }
+    if (result.alreadyReviewed) {
+      res.status(409).json({ error: 'Este documento já foi revisado.' });
+      return;
+    }
+
+    newStudent = result.student;
+    createdEnrollmentsCount = result.enrollmentCount;
+  } else {
+    const db = dbAccess.getMemoryDb();
+    const memoryDoc = db.digitized_documents.find((document) => document.id === id);
+    if (!memoryDoc) {
+      res.status(404).json({ error: 'Documento não encontrado' });
+      return;
+    }
+
+    let guardian = db.guardians.find(
+      (item) => item.cpf.replace(/\D/g, '') === guardianCpfDigits
+    );
+    if (!guardian) {
+      guardian = {
+        id: crypto.randomUUID(),
+        nome_completo: guardianName,
+        cpf: guardianCpf,
+        rg: getExtractedValue(guardianData, 'rg'),
+        nis: getExtractedValue(guardianData, 'nis'),
+        telefone: guardianPhone,
+        endereco: getExtractedValue(guardianData, 'address'),
+        parentesco: relationship,
+        ocupacao: null,
+        escolaridade: null,
+        renda_familiar_faixa: null,
+        beneficiario_programa_social: Boolean(getExtractedValue(guardianData, 'social_program')),
+        programa_social: getExtractedValue(guardianData, 'social_program'),
+        created_at: now,
+        updated_at: now,
+      };
+      db.guardians.push(guardian);
+    }
+
+    newStudent = {
+      id: studentId,
+      matricula_numero: matriculaNumero,
+      nome_completo: studentName,
+      data_nascimento: birthDate,
+      cpf: getExtractedValue(studentData, 'cpf'),
+      rg: getExtractedValue(studentData, 'rg'),
+      orgao_emissor: getExtractedValue(studentData, 'orgao_emissor'),
+      nis: getExtractedValue(studentData, 'nis'),
+      etnia: getExtractedValue(studentData, 'ethnicity'),
+      escola: getExtractedValue(studentData, 'school'),
+      serie: getExtractedValue(studentData, 'grade'),
+      turno_escolar: getExtractedValue(studentData, 'turno_escolar'),
+      status: 'ativo',
+      foto_url: null,
+      created_at: now,
+      updated_at: now,
+    };
+    db.students.push(newStudent);
+    db.student_guardians.push({
+      id: crypto.randomUUID(),
+      student_id: studentId,
+      guardian_id: guardian.id,
+      parentesco: relationship,
+      responsavel_legal: true,
+      principal: true,
+      created_at: now,
+    });
+    db.health_records.push({
+      id: crypto.randomUUID(),
+      student_id: studentId,
+      possui_deficiencia: healthData.has_disability?.value === true,
+      descricao_deficiencia: getExtractedValue(healthData, 'disability_description'),
+      possui_doenca_cronica: healthData.has_chronic_disease?.value === true,
+      descricao_doenca: getExtractedValue(healthData, 'chronic_disease_description'),
+      utiliza_medicamento: healthData.uses_controlled_medication?.value === true,
+      descricao_medicamento: getExtractedValue(healthData, 'medication_description'),
+      observacoes: getExtractedValue(healthData, 'health_notes'),
+      laudo_medico_apresentado: false,
+      created_at: now,
+      updated_at: now,
+    });
+
+    for (const modality of checkedModalities) {
+      const sport = db.sports.find(
+        (item) => item.nome.toLowerCase() === String(modality.name).toLowerCase()
+      );
+      if (!sport) continue;
+
+      const defaultClass = db.classes.find((item) => item.sports_id === sport.id && item.ativo);
+      db.enrollments.push({
+        id: crypto.randomUUID(),
+        student_id: studentId,
+        sports_id: sport.id,
+        class_id: defaultClass?.id || null,
+        status: 'ativa',
+        data_matricula: new Date().toISOString().split('T')[0],
+        observacoes: 'Matrícula originada de ficha digitalizada e revisada.',
+        created_at: now,
+      });
+      createdEnrollmentsCount++;
+    }
+
+    memoryDoc.student_id = studentId;
+    memoryDoc.status_processamento = 'revisado';
+    memoryDoc.revisado_por = req.user?.userId || null;
+    memoryDoc.revisado_em = now;
+    memoryDoc.notas_revisao = notas || null;
   }
 
-  // 6. Atualiza o documento digitalizado com o vínculo e status
-  doc.student_id = studentId;
-  doc.status_processamento = 'concluido';
-  doc.revisado_por = req.user?.userId || null;
-  doc.revisado_em = new Date().toISOString();
-  doc.notas_revisao = notas || 'Conferido e validado pela equipe administrativa.';
-
-  logger.info(`Ficha ${id} confirmada humanamente. Aluno ${newStudent.nome_completo} (Matrícula #${matriculaNumero}) registrado.`);
+  logger.info(`Ficha ${id} confirmada. Aluno ${studentName} (Matrícula #${matriculaNumero}) registrado.`);
 
   res.json({
     message: 'Cadastro efetivado com sucesso a partir da ficha digitalizada!',
     student: newStudent,
-    enrollmentsCount: createdEnrollments.length,
+    enrollmentsCount: createdEnrollmentsCount,
     matricula: matriculaNumero,
   });
 }
 
 export async function rejectDocument(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
-  const db = dbAccess.getMemoryDb();
+  const userId = req.user?.userId || null;
 
-  const doc = db.digitized_documents.find((d) => d.id === id);
-  if (!doc) {
-    res.status(404).json({ error: 'Documento não encontrado' });
-    return;
+  if (dbAccess.isPostgres()) {
+    const result = await query(
+      `UPDATE digitized_documents
+       SET status_processamento = 'descartado', revisado_por = $1,
+           revisado_em = NOW(), notas_revisao = $2
+       WHERE id = $3
+       RETURNING id`,
+      [userId, 'Documento descartado pelo operador.', id]
+    );
+    if (result.rowCount === 0) {
+      res.status(404).json({ error: 'Documento não encontrado' });
+      return;
+    }
+  } else {
+    const db = dbAccess.getMemoryDb();
+    const doc = db.digitized_documents.find((d) => d.id === id);
+    if (!doc) {
+      res.status(404).json({ error: 'Documento não encontrado' });
+      return;
+    }
+
+    doc.status_processamento = 'descartado';
+    doc.revisado_por = userId;
+    doc.revisado_em = new Date().toISOString();
+    doc.notas_revisao = 'Documento descartado pelo operador.';
   }
 
-  doc.status_processamento = 'descartado';
-  doc.revisado_por = req.user?.userId || null;
-  doc.revisado_em = new Date().toISOString();
-  doc.notas_revisao = 'Ficha descartada pelo operador. Solicitada nova captura.';
-
   res.json({
-    message: 'Documento rejeitado e descartado com segurança.',
+    message: 'Documento rejeitado e descartado.',
   });
-}
-
-// Extrator estruturado de alta fidelidade para a ficha física oficial do Dagaz
-function generateFidelityExtraction(filename: string): any {
-  return {
-    student: {
-      name: { value: 'Felipe dos Santos Rocha', confidence: 0.99, status: 'read' },
-      birth_date: { value: '2013-05-14', confidence: 0.97, status: 'read' },
-      calculated_age: { value: 12, confidence: 1.0, status: 'read' },
-      cpf: { value: '145.892.307-44', confidence: 0.94, status: 'read' },
-      rg: { value: '31.849.201-8 DETRAN-RJ', confidence: 0.91, status: 'read' },
-      nis: { value: '209.431.882-90', confidence: 0.95, status: 'read' },
-      ethnicity: { value: 'parda', confidence: 0.96, status: 'read' },
-      school: { value: 'E.M. Professora Maria José', confidence: 0.95, status: 'read' },
-      grade: { value: '7º Ano', confidence: 0.93, status: 'read' },
-    },
-    guardian: {
-      name: { value: 'Mariana dos Santos Rocha', confidence: 0.98, status: 'read' },
-      relationship: { value: 'Mãe', confidence: 0.99, status: 'read' },
-      phone: { value: '(24) 99842-1102', confidence: 0.97, status: 'read' },
-      address: { value: 'Rua Projetada B, 45 - Bairro Santo Agostinho, Volta Redonda/RJ', confidence: 0.98, status: 'read' },
-      social_program: { value: 'Bolsa Família', confidence: 0.95, status: 'read' },
-    },
-    health: {
-      has_disability: { value: false, confidence: 0.98, status: 'read' },
-      has_chronic_disease: { value: true, confidence: 0.95, status: 'read' },
-      chronic_disease_description: { value: 'Possui asma moderada - usa bombinha quando necessário', confidence: 0.94, status: 'read' },
-      uses_controlled_medication: { value: true, confidence: 0.92, status: 'read' },
-      health_notes: { value: 'Registrado na ficha física na seção de observações médicas.', confidence: 0.96, status: 'read' },
-    },
-    family_members: [
-      { name: 'Mariana dos Santos Rocha', relationship: 'Mãe', age: 36, schooling: 'Ensino Médio', profession: 'Autônoma', income: 1200 },
-      { name: 'Felipe dos Santos Rocha', relationship: 'Filho', age: 12, schooling: 'Fundamental', profession: 'Estudante', income: 0 },
-      { name: 'Lucas dos Santos Rocha', relationship: 'Filho', age: 8, schooling: 'Fundamental', profession: 'Estudante', income: 0 },
-    ],
-    totals: {
-      total_residents: { value: 3, confidence: 0.98 },
-      total_family_income: { value: 1200, confidence: 0.95 },
-    },
-    modalities: [
-      { name: 'Judô', checked: true, confidence: 0.98 },
-      { name: 'Futsal', checked: true, confidence: 0.97 },
-      { name: 'Capoeira', checked: false, confidence: 0.99 },
-      { name: 'Treinamento Funcional', checked: false, confidence: 0.99 },
-      { name: 'Basquete 3x3', checked: false, confidence: 0.99 },
-      { name: 'Futevôlei', checked: false, confidence: 0.99 },
-    ],
-    authorizations: {
-      image_use: { value: true, confidence: 0.99, status: 'read' },
-      responsibility_declaration: { value: true, confidence: 0.99, status: 'read' },
-      registration_city: { value: 'Volta Redonda', confidence: 0.99, status: 'read' },
-      registration_date: { value: '2025-02-18', confidence: 0.95, status: 'read' },
-    },
-    general_confidence: 96.0,
-    review_required: false,
-  };
 }

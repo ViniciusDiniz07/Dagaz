@@ -17,13 +17,13 @@ export const createStudentSchema = z.object({
   rg: z.string().max(50).optional().nullable(),
   orgao_emissor: z.string().max(50).optional().nullable(),
   nis: z.string().max(50).optional().nullable(),
-  etnia: z.enum(['branca', 'preta', 'parda', 'amarela', 'indigena', 'nao_declarado']).default('parda'),
+  etnia: z.enum(['branca', 'preta', 'parda', 'amarela', 'indigena', 'nao_declarado']).optional().nullable(),
   foto_url: z.string().url().optional().nullable(),
 
   // Etapa 2: Escolaridade & NIS
   escola: z.string().max(255).optional().nullable(),
   serie: z.string().max(50).optional().nullable(),
-  turno_escolar: z.enum(['manha', 'tarde', 'integral', 'noite']).default('tarde'),
+  turno_escolar: z.enum(['manha', 'tarde', 'integral', 'noite']).optional().nullable(),
 
   // Etapa 3: Ficha de Saúde & Cuidados
   saude: z.object({
@@ -34,7 +34,7 @@ export const createStudentSchema = z.object({
     utiliza_medicamento: z.boolean().default(false),
     descricao_medicamento: z.string().optional().nullable(),
     observacoes: z.string().optional().nullable(),
-    laudo_medico_apresentado: z.boolean().default(true),
+    laudo_medico_apresentado: z.boolean().default(false),
   }),
 
   // Etapa 4: Modalidades Esportivas pretendidas (pode selecionar 1 ou mais turmas)
@@ -56,10 +56,10 @@ export const createStudentSchema = z.object({
       bairro: z.string().optional().nullable(),
       cidade: z.string().default('Volta Redonda'),
       cep: z.string().optional().nullable(),
-      parentesco: z.string().default('Mãe'),
-      ocupacao: z.enum(['trabalho_formal', 'informal', 'esporadico', 'desempregado', 'aposentado_pensionista', 'outro']).default('informal'),
-      escolaridade: z.enum(['nenhuma', 'fundamental', 'medio', 'superior_incompleto', 'superior_completo', 'pos_graduacao']).default('medio'),
-      renda_familiar_faixa: z.enum(['ate_1_sm', 'ate_2_sm', 'ate_3_sm', 'ate_4_sm', 'acima_4_sm']).default('ate_2_sm'),
+      parentesco: z.string().optional().nullable(),
+      ocupacao: z.enum(['trabalho_formal', 'informal', 'esporadico', 'desempregado', 'aposentado_pensionista', 'outro']).optional().nullable(),
+      escolaridade: z.enum(['nenhuma', 'fundamental', 'medio', 'superior_incompleto', 'superior_completo', 'pos_graduacao']).optional().nullable(),
+      renda_familiar_faixa: z.enum(['ate_1_sm', 'ate_2_sm', 'ate_3_sm', 'ate_4_sm', 'acima_4_sm']).optional().nullable(),
       beneficiario_programa_social: z.boolean().default(false),
       programa_social: z.string().optional().nullable(),
     })
@@ -69,8 +69,8 @@ export const createStudentSchema = z.object({
   residentes_domicilio: z.array(familyMemberSchema).optional(),
 
   // Autorizações da Ficha Física
-  autorizacao_imagem: z.boolean().default(true),
-  declaracao_responsabilidade: z.boolean().default(true),
+  autorizacao_imagem: z.boolean().default(false),
+  declaracao_responsabilidade: z.boolean().default(false),
 });
 
 export const updateStudentSchema = createStudentSchema.partial();

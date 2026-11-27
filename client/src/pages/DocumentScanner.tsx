@@ -6,6 +6,22 @@ interface DocumentScannerProps {
   onNavigate: (path: string) => void;
 }
 
+function getAgeFromDate(value: string): string | null {
+  const dateValue = value.includes('/')
+    ? value.split('/').reverse().join('-')
+    : value;
+  const birthDate = new Date(`${dateValue}T00:00:00`);
+  if (!value || Number.isNaN(birthDate.getTime())) return null;
+
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDifference = today.getMonth() - birthDate.getMonth();
+  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age >= 0 ? `${age} anos` : null;
+}
+
 export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -20,40 +36,29 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   // Estado do arquivo processado
-  const [fileName, setFileName] = useState('ficha_inscricao_felipe_santos_2025.jpg');
-  const [fileSize, setFileSize] = useState('1.8 MB');
-  const [previewImage, setPreviewImage] = useState(
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuDT7DuqWat7sfigyNprau6OlYjsqdYRvtHL1Uj4TfRKcVZz4wRqGIAEQbq8AeENaMUGeLt7B-3zZOWs-LvTxDd1jVrdjqeyMTqO0AxM0L2fy9DhEze7y27tCGRdCO71n7XmZF6e3GOZzEgXDyjesRex0XHGxL-U7wWgY0thQH3ZDW-gWe80WsiF8Ih1kYOel2bA1uja9Z-avwtclwcwDxaRRmbJVauydDonJmLSLHE'
-  );
-  const [currentDocId, setCurrentDocId] = useState('50000000-0000-0000-0000-000000000001');
+  const [fileName, setFileName] = useState('');
+  const [fileSize, setFileSize] = useState('');
+  const [previewImage, setPreviewImage] = useState('');
+  const [currentDocId, setCurrentDocId] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [ocrConfidence, setOcrConfidence] = useState(96);
+  const [ocrConfidence, setOcrConfidence] = useState<number | null>(null);
 
   // Campos extraídos e editáveis
-  const [studentName, setStudentName] = useState('Felipe dos Santos Rocha');
-  const [birthDate, setBirthDate] = useState('14/05/2012');
-  const [studentCpf, setStudentCpf] = useState('145.892.307-44');
-  const [studentRg, setStudentRg] = useState('31.849.201-8 DETRAN-RJ');
-  const [studentNis, setStudentNis] = useState('209.431.882-90');
-  const [guardianName, setGuardianName] = useState('Mariana dos Santos Rocha');
-  const [guardianPhone, setGuardianPhone] = useState('(24) 99842-1102');
-  const [address, setAddress] = useState(
-    'Rua Projetada B, 45 - Bairro Santo Agostinho, Volta Redonda/RJ'
-  );
-  const [schoolInfo, setSchoolInfo] = useState('E.M. Professora Maria José - 7º Ano');
-  const [healthNotes, setHealthNotes] = useState(
-    'Possui asma moderada - usa bombinha quando necessário'
-  );
+  const [studentName, setStudentName] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [studentCpf, setStudentCpf] = useState('');
+  const [studentRg, setStudentRg] = useState('');
+  const [studentNis, setStudentNis] = useState('');
+  const [guardianName, setGuardianName] = useState('');
+  const [guardianCpf, setGuardianCpf] = useState('');
+  const [guardianRelationship, setGuardianRelationship] = useState('');
+  const [guardianPhone, setGuardianPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [schoolInfo, setSchoolInfo] = useState('');
+  const [healthNotes, setHealthNotes] = useState('');
 
   // Modalidades detectadas na ficha
-  const [modalities, setModalities] = useState([
-    { name: 'Judô', checked: true },
-    { name: 'Futsal', checked: true },
-    { name: 'Capoeira', checked: false },
-    { name: 'Treinamento Funcional', checked: false },
-    { name: 'Basquete 3x3', checked: false },
-    { name: 'Futevôlei', checked: false },
-  ]);
+  const [modalities, setModalities] = useState<Array<{ name: string; checked: boolean }>>([]);
 
   // Modais de confirmação
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -92,6 +97,21 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
   const handleFileUpload = async (file: File) => {
     if (!file) return;
 
+    setCurrentDocId(null);
+    setOcrConfidence(null);
+    setStudentName('');
+    setBirthDate('');
+    setStudentCpf('');
+    setStudentRg('');
+    setStudentNis('');
+    setGuardianName('');
+    setGuardianCpf('');
+    setGuardianRelationship('');
+    setGuardianPhone('');
+    setAddress('');
+    setSchoolInfo('');
+    setHealthNotes('');
+    setModalities([]);
     setFileName(file.name);
     setFileSize((file.size / (1024 * 1024)).toFixed(1) + ' MB');
     setIsProcessing(true);
@@ -108,7 +128,7 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
     try {
       const result = await api.extractDocument(file);
       setCurrentDocId(result.documentId);
-      setOcrConfidence(Math.round(result.confianca_geral || 95));
+      setOcrConfidence(Math.round(Number(result.confianca_geral || 0)));
 
       const dados: OCRExtractedData = result.dados;
       if (dados.student?.name?.value) setStudentName(dados.student.name.value);
@@ -117,6 +137,10 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
       if (dados.student?.rg?.value) setStudentRg(dados.student.rg.value);
       if (dados.student?.nis?.value) setStudentNis(dados.student.nis.value);
       if (dados.guardian?.name?.value) setGuardianName(dados.guardian.name.value);
+      if (dados.guardian?.cpf?.value) setGuardianCpf(dados.guardian.cpf.value);
+      if (dados.guardian?.relationship?.value) {
+        setGuardianRelationship(dados.guardian.relationship.value);
+      }
       if (dados.guardian?.phone?.value) setGuardianPhone(dados.guardian.phone.value);
       if (dados.guardian?.address?.value) setAddress(dados.guardian.address.value);
       if (dados.student?.school?.value) {
@@ -137,30 +161,20 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
 
       setActiveTab('data');
     } catch (err: any) {
+      setCurrentDocId(null);
+      setOcrConfidence(null);
       alert(err.message || 'Erro ao processar imagem da ficha com OCR Gemini.');
     } finally {
       setIsProcessing(false);
     }
   };
 
-  const handleLoadOfficialSample = () => {
-    setFileName('ficha_exemplo_dagaz_2026.jpg');
-    setFileSize('1.4 MB');
-    setPreviewImage('/sample-fichas/ficha_exemplo_dagaz_2026.jpg');
-    setStudentName('Felipe dos Santos Rocha');
-    setBirthDate('14/05/2012');
-    setStudentCpf('145.892.307-44');
-    setStudentRg('31.849.201-8 DETRAN-RJ');
-    setStudentNis('209.431.882-90');
-    setGuardianName('Mariana dos Santos Rocha');
-    setGuardianPhone('(24) 99842-1102');
-    setAddress('Rua Projetada B, 45 - Bairro Santo Agostinho, Volta Redonda/RJ');
-    setSchoolInfo('E.M. Professora Maria José - 7º Ano');
-    setHealthNotes('Possui asma moderada - usa bombinha quando necessário');
-    setOcrConfidence(96);
-  };
-
   const handleConfirmRegistration = async () => {
+    if (!currentDocId || !studentName.trim() || !birthDate.trim()) {
+      alert('Envie uma ficha e confira o nome e a data de nascimento antes de salvar.');
+      return;
+    }
+
     setIsSaving(true);
     try {
       const payloadRevisado = {
@@ -171,21 +185,22 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
           rg: { value: studentRg },
           nis: { value: studentNis },
           school: { value: schoolInfo.split(' - ')[0] || schoolInfo },
-          grade: { value: schoolInfo.split(' - ')[1] || '7º Ano' },
-          ethnicity: { value: 'parda' },
+          grade: { value: schoolInfo.split(' - ')[1] || null },
+          ethnicity: { value: null },
         },
         guardian: {
           name: { value: guardianName },
-          relationship: { value: 'Mãe' },
+          cpf: { value: guardianCpf },
+          relationship: { value: guardianRelationship },
           phone: { value: guardianPhone },
           address: { value: address },
-          social_program: { value: 'Bolsa Família' },
+          social_program: { value: null },
         },
         health: {
           has_disability: { value: false },
-          has_chronic_disease: { value: true },
+          has_chronic_disease: { value: false },
           chronic_disease_description: { value: healthNotes },
-          uses_controlled_medication: { value: true },
+          uses_controlled_medication: { value: false },
           health_notes: { value: healthNotes },
         },
         modalities: modalities,
@@ -200,12 +215,33 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
     }
   };
 
-  const handleDiscard = () => {
+  const handleDiscard = async () => {
+    if (!currentDocId) return;
+
     if (confirm('Deseja realmente rejeitar esta leitura e capturar uma nova foto da ficha física?')) {
-      api.rejectDocumentOCR(currentDocId).catch(() => {});
-      setStudentName('');
-      setStudentCpf('');
-      alert('Ficha descartada com segurança. Aponte a câmera com boa iluminação para uma nova digitalização.');
+      try {
+        await api.rejectDocumentOCR(currentDocId);
+        setCurrentDocId(null);
+        setStudentName('');
+        setBirthDate('');
+        setStudentCpf('');
+        setStudentRg('');
+        setStudentNis('');
+        setGuardianName('');
+        setGuardianCpf('');
+        setGuardianRelationship('');
+        setGuardianPhone('');
+        setAddress('');
+        setSchoolInfo('');
+        setHealthNotes('');
+        setModalities([]);
+        setFileName('');
+        setFileSize('');
+        setPreviewImage('');
+        setOcrConfidence(null);
+      } catch (err: any) {
+        alert(err.message || 'Não foi possível rejeitar a leitura.');
+      }
     }
   };
 
@@ -272,7 +308,7 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
             </h2>
           </div>
           <span className="font-label-sm text-label-sm text-on-tertiary-container bg-surface-container-low px-2 py-0.5 rounded-full font-medium">
-            1 arquivo pronto
+            {fileName ? '1 arquivo selecionado' : 'Nenhum arquivo selecionado'}
           </span>
         </div>
 
@@ -301,20 +337,8 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
           </button>
         </div>
 
-        {/* Atalho de Ficha Real de Teste */}
-        <div className="pt-0.5">
-          <button
-            type="button"
-            onClick={handleLoadOfficialSample}
-            className="w-full py-2 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm flex items-center justify-center gap-1.5 transition-colors"
-          >
-            <span className="material-symbols-outlined text-[16px] text-secondary">assignment</span>
-            <span>Carregar Ficha Física de Inscrição Oficial Dagaz 2026 (Exemplo Anexado)</span>
-          </button>
-        </div>
-
-        {/* Card de Demonstração do Arquivo Processado */}
-        <div className="bg-surface-container-low rounded-xl p-3 flex items-center gap-3">
+        {fileName && (
+          <div className="bg-surface-container-low rounded-xl p-3 flex items-center gap-3">
           <div className="relative w-14 h-16 rounded-lg overflow-hidden shrink-0 shadow-sm bg-surface-container">
             <img
               alt="Ficha Digitalizada"
@@ -323,7 +347,7 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
             />
             <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
               <span className="material-symbols-outlined text-[18px] text-on-primary">
-                {isProcessing ? 'hourglass_top' : 'check_circle'}
+                {isProcessing ? 'hourglass_top' : currentDocId ? 'check_circle' : 'error'}
               </span>
             </div>
           </div>
@@ -339,17 +363,22 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
               <span className="font-label-sm text-[11px] text-on-tertiary-container font-semibold">
                 {isProcessing
                   ? 'Processando com Google Gemini IA...'
-                  : `Leitura OCR Concluída: ${ocrConfidence}% confiança`}
+                  : currentDocId && ocrConfidence !== null
+                  ? `Leitura OCR concluída: ${ocrConfidence}% de confiança`
+                  : 'Não foi possível concluir a leitura'}
               </span>
             </div>
-            <div className="w-full bg-surface-container-highest rounded-full h-1.5 mt-1.5 overflow-hidden">
-              <div
-                className="bg-secondary h-1.5 rounded-full transition-all duration-700"
-                style={{ width: `${ocrConfidence}%` }}
-              ></div>
-            </div>
+            {ocrConfidence !== null && (
+              <div className="w-full bg-surface-container-highest rounded-full h-1.5 mt-1.5 overflow-hidden">
+                <div
+                  className="bg-secondary h-1.5 rounded-full transition-all duration-700"
+                  style={{ width: `${ocrConfidence}%` }}
+                ></div>
+              </div>
+            )}
           </div>
-        </div>
+          </div>
+        )}
       </section>
 
       {/* 3. Visualizador Interativo e Conferência de Dados Lado a Lado */}
@@ -366,12 +395,13 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
             }`}
           >
             <span className="material-symbols-outlined text-[18px] text-secondary">fact_check</span>
-            <span>Dados Extraídos (10)</span>
+            <span>Dados Extraídos</span>
           </button>
           <button
             type="button"
+            disabled={!previewImage}
             onClick={() => setActiveTab('doc')}
-            className={`flex-1 py-2 px-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 py-2 px-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5 transition-all disabled:opacity-50 ${
               activeTab === 'doc'
                 ? 'bg-surface-container-lowest text-primary shadow-sm font-semibold'
                 : 'text-on-surface-variant hover:text-primary'
@@ -417,7 +447,7 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
               </div>
             </div>
 
-            <div
+            {previewImage ? <div
               className="relative w-full h-80 rounded-xl overflow-hidden bg-primary/5 flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
@@ -440,7 +470,11 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
                 <span className="material-symbols-outlined text-[14px] text-secondary">crop_free</span>
                 Arraste para navegar pelo zoom ({Math.round(currentZoom * 100)}%)
               </div>
-            </div>
+            </div> : (
+              <div className="h-80 rounded-xl bg-surface-container-low flex items-center justify-center text-on-surface-variant">
+                Selecione uma ficha para visualizar.
+              </div>
+            )}
           </div>
         )}
 
@@ -456,23 +490,18 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
                   Toque nos campos para ajustar eventuais grafias
                 </span>
               </div>
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-tertiary-container font-label-sm text-label-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
-                Conferido
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                Revise antes de salvar
               </span>
             </div>
 
             <form className="space-y-3.5" onSubmit={(e) => e.preventDefault()}>
               {/* Nome do Aluno */}
               <div className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
-                    Nome Completo do Aluno
-                  </label>
-                  <span className="font-label-sm text-[10px] text-on-tertiary-container bg-surface-container-low px-2 py-0.5 rounded-full flex items-center gap-1">
-                    <span className="material-symbols-outlined text-[12px]">verified</span> 99% precisão
-                  </span>
-                </div>
+                <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
+                  Nome Completo do Aluno
+                </label>
                 <div className="relative">
                   <input
                     type="text"
@@ -489,12 +518,9 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
               {/* Nascimento & Idade Calculada */}
               <div className="grid grid-cols-2 gap-2.5">
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
-                      Nascimento
-                    </label>
-                    <span className="text-[10px] text-on-tertiary-container font-semibold">97%</span>
-                  </div>
+                  <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
+                    Nascimento
+                  </label>
                   <input
                     type="text"
                     value={birthDate}
@@ -507,7 +533,7 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
                     Idade Calculada
                   </label>
                   <div className="w-full bg-surface-container px-3.5 py-2.5 rounded-lg font-body-md text-body-md font-semibold text-secondary flex items-center justify-between">
-                    <span>12 anos</span>
+                    <span>{getAgeFromDate(birthDate) ?? '—'}</span>
                     <span className="material-symbols-outlined text-[16px] text-secondary">cake</span>
                   </div>
                 </div>
@@ -516,12 +542,9 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
               {/* CPF & RG */}
               <div className="grid grid-cols-2 gap-2.5">
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
-                      CPF do Aluno
-                    </label>
-                    <span className="text-[10px] text-on-tertiary-container font-semibold">94%</span>
-                  </div>
+                  <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
+                    CPF do Aluno
+                  </label>
                   <input
                     type="text"
                     value={studentCpf}
@@ -530,12 +553,9 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
                   />
                 </div>
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
-                      RG / Órgão
-                    </label>
-                    <span className="text-[10px] text-on-tertiary-container font-semibold">91%</span>
-                  </div>
+                  <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
+                    RG / Órgão
+                  </label>
                   <input
                     type="text"
                     value={studentRg}
@@ -575,7 +595,7 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
                     </span>
                   </div>
                   <span className="font-label-sm text-[11px] text-secondary bg-surface-container px-2 py-0.5 rounded-md font-semibold">
-                    Mãe
+                    {guardianRelationship || 'Vínculo não informado'}
                   </span>
                 </div>
                 <div className="space-y-1">
@@ -586,6 +606,17 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
                     type="text"
                     value={guardianName}
                     onChange={(e) => setGuardianName(e.target.value)}
+                    className="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-3 py-2 rounded-lg focus:outline-none font-medium"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="font-label-sm text-[11px] text-on-surface-variant font-medium">
+                    CPF do Responsável Legal
+                  </label>
+                  <input
+                    type="text"
+                    value={guardianCpf}
+                    onChange={(e) => setGuardianCpf(e.target.value)}
                     className="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-3 py-2 rounded-lg focus:outline-none font-medium"
                   />
                 </div>
@@ -609,14 +640,9 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
 
               {/* Endereço Residencial */}
               <div className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
-                    Endereço Residencial
-                  </label>
-                  <span className="font-label-sm text-[10px] text-on-tertiary-container bg-surface-container-low px-2 py-0.5 rounded-full font-semibold">
-                    98% precisão
-                  </span>
-                </div>
+                <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
+                  Endereço Residencial
+                </label>
                 <textarea
                   rows={2}
                   value={address}
@@ -627,12 +653,9 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
 
               {/* Escola e Ano */}
               <div className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
-                    Unidade Escolar & Série
-                  </label>
-                  <span className="text-[10px] text-on-tertiary-container font-semibold">95%</span>
-                </div>
+                <label className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
+                  Unidade Escolar & Série
+                </label>
                 <input
                   type="text"
                   value={schoolInfo}
@@ -680,6 +703,11 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
                       </div>
                     </label>
                   ))}
+                  {modalities.length === 0 && (
+                    <span className="col-span-2 text-sm text-on-surface-variant">
+                      Nenhuma modalidade identificada.
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -707,7 +735,7 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
                     <span className="material-symbols-outlined text-[13px] text-secondary">
                       info
                     </span>
-                    Registrado na ficha física na seção de observações médicas.
+                    Confira os dados com o documento original antes de salvar.
                   </p>
                 </div>
               </div>
@@ -721,20 +749,21 @@ export const DocumentScanner: React.FC<DocumentScannerProps> = ({ onNavigate }) 
         {/* Botão Primário: Confirmar e Salvar Cadastro */}
         <button
           type="button"
-          disabled={isSaving}
+          disabled={!currentDocId || isProcessing || isSaving}
           onClick={handleConfirmRegistration}
           className="w-full h-13 py-3.5 px-4 rounded-xl bg-tertiary-container hover:bg-on-tertiary-fixed text-tertiary-fixed font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all disabled:opacity-75"
         >
           <span className="material-symbols-outlined text-[24px]">verified</span>
-          <span>{isSaving ? 'Salvando no Banco PostgreSQL...' : 'Confirmar & Salvar Cadastro'}</span>
+          <span>{isSaving ? 'Salvando cadastro...' : 'Confirmar & Salvar Cadastro'}</span>
         </button>
 
         {/* Linha Secundária: Rejeitar ou Fazer Edição Manual */}
         <div className="grid grid-cols-2 gap-2.5">
           <button
             type="button"
+            disabled={!currentDocId}
             onClick={handleDiscard}
-            className="h-11 px-3 rounded-lg bg-surface-container-low hover:bg-error-container/40 text-error font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors"
+            className="h-11 px-3 rounded-lg bg-surface-container-low hover:bg-error-container/40 text-error font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors disabled:opacity-50"
           >
             <span className="material-symbols-outlined text-[18px]">delete_sweep</span>
             <span>Rejeitar / Nova Foto</span>

@@ -7,9 +7,9 @@ interface LoginProps {
 
 export const Login: React.FC<LoginProps> = ({ onSuccess }) => {
   const { login } = useAuth();
-  const [email, setEmail] = useState('admin@esportedagaz.org.br');
-  const [password, setPassword] = useState('Admin@Dagaz2026!');
-  const [rememberMe, setRememberMe] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [loading, setLoading] = useState(false);
