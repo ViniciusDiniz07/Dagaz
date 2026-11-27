@@ -38,7 +38,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `relatorio_dagaz_mensal_${new Date().toISOString().split('T')[0]}.json`;
+      a.download = `relatorio_condominio_cultura_esportivo_${new Date().toISOString().split('T')[0]}.json`;
       a.click();
       URL.revokeObjectURL(url);
 

@@ -43,24 +43,21 @@ export const Login: React.FC<LoginProps> = ({ onSuccess }) => {
           {/* Brand Header */}
           <div className="flex flex-col items-center text-center mb-space-md">
             {/* Emblem Container with soft halo */}
-            <div className="relative mb-space-sm flex items-center justify-center">
-              <div className="absolute w-28 h-28 rounded-full bg-secondary-fixed/40 blur-xl"></div>
-              <div className="relative bg-surface-container-lowest p-3 rounded-full shadow-md flex items-center justify-center">
-                <img
-                  alt="Logotipo Oficial Projeto Esporte Dagaz"
-                  className="w-20 h-20 object-contain drop-shadow-sm"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnHMFEUdUVmRjfMIKsVPxX2mcIKs7eupASgcyMuWpVXYlRkR312TSvOswdJOxpNLvpdm_DXu44TGafWdpcpAHgCUA1XXsHnezYSABrVd9DpRK-7cLiLYgHTJ9gEKHIYTbRbTQ1wJG23Onielm2rEbGOVoxMWqEh5Hgl9pzbaFCw1boVlqKj9gpMbll5G42MKztHU6-bmDGcQmF9piGGi7O4u6jc-dApF1BoYKE9Zs"
-                />
-              </div>
+            <div className="mb-space-sm flex items-center justify-center">
+              <img
+                alt="Logotipo do Condomínio Cultura e Esportivo"
+                className="w-20 h-20 object-contain"
+                src="/logo-condominio-cultura-esportivo-transparente.png"
+              />
             </div>
 
             {/* Restrict Badge */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm mb-space-xs shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-variant animate-pulse"></span>
-              <span>Acesso Restrito • Equipe Dagaz</span>
+              <span>Acesso Restrito • Equipe do Condomínio</span>
             </div>
             <h1 className="font-headline-sm text-headline-sm text-primary tracking-tight">
-              Projeto Esporte Dagaz
+              Condomínio Cultura e Esportivo
             </h1>
             <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
               Sistema de Gestão Administrativa
@@ -86,10 +83,7 @@ export const Login: React.FC<LoginProps> = ({ onSuccess }) => {
                   className="font-label-md text-label-md text-primary flex items-center justify-between"
                   htmlFor="admin-email"
                 >
-                  <span>E-mail institucional</span>
-                  <span className="text-on-surface-variant font-body-sm text-label-sm font-normal">
-                    Domínio @dagaz.org.br
-                  </span>
+                  <span>E-mail de acesso</span>
                 </label>
                 <div className="relative flex items-center">
                   <span className="material-symbols-outlined absolute left-3 text-outline text-lg pointer-events-none transition-colors duration-200">
@@ -101,7 +95,7 @@ export const Login: React.FC<LoginProps> = ({ onSuccess }) => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@dagaz.org.br"
+                    placeholder="Digite seu e-mail"
                     className="w-full h-11 pl-10 pr-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-secondary transition-all shadow-sm"
                   />
                 </div>
@@ -203,7 +197,7 @@ export const Login: React.FC<LoginProps> = ({ onSuccess }) => {
               </span>
             </div>
             <div className="flex flex-col items-center text-outline text-label-sm font-label-sm mt-1">
-              <p>v1.0.4 • Projeto Social Esporte Dagaz</p>
+              <p>v1.0.4 • Gestão Socioesportiva</p>
               <p className="text-on-surface-variant/70 mt-0.5">
                 Módulo de Governança e Controle Operacional
               </p>

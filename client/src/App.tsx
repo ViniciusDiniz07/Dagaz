@@ -44,7 +44,7 @@ export const App: React.FC = () => {
       case 'configuracoes':
         return 'Configurações do Polo';
       default:
-        return 'Esporte Dagaz';
+        return 'Condomínio Cultura e Esportivo';
     }
   };
 
@@ -113,7 +113,7 @@ export const App: React.FC = () => {
                 Configurações do Polo Socioesportivo
               </h2>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                Polo Volta Redonda/RJ. Parceria Instituto Dagaz, CSN e Secretaria de Estado de Esporte e Lazer do Rio de Janeiro.
+                Unidade de Volta Redonda/RJ • Gestão socioesportiva do Condomínio Cultura e Esportivo.
               </p>
               <div className="pt-2 text-label-sm text-outline">
                 Versão do Sistema: v1.0.4

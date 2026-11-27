@@ -1,6 +1,6 @@
-# Arquitetura do Sistema – Esporte Dagaz
+# Arquitetura do Sistema – Condomínio Cultura e Esportivo
 
-Este documento descreve a arquitetura de software, componentes estruturais, modelo de dados e fluxos operacionais do **Sistema de Gestão Socioesportiva – Projeto Esporte Dagaz**.
+Este documento descreve a arquitetura de software, componentes estruturais, modelo de dados e fluxos operacionais do **Sistema de Gestão Socioesportiva – Condomínio Cultura e Esportivo**.
 
 ---
 

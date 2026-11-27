@@ -1,6 +1,6 @@
-# Manual de Instalação e Execução – Sistema Esporte Dagaz
+# Manual de Instalação e Execução – Condomínio Cultura e Esportivo
 
-Este documento orienta a equipe de tecnologia e desenvolvimento na instalação, configuração e inicialização do **Sistema de Gestão Socioesportiva – Projeto Esporte Dagaz**.
+Este documento orienta a equipe de tecnologia e desenvolvimento na instalação, configuração e inicialização do **Sistema de Gestão Socioesportiva – Condomínio Cultura e Esportivo**.
 
 ---
 
@@ -72,7 +72,7 @@ GEMINI_API_KEY=sua-chave-gemini-ai-studio
 CORS_ORIGIN=http://localhost:5173,http://localhost:3000
 ```
 
-> **Nota:** Caso você não configure `SUPABASE_DB_URL` ou `GEMINI_API_KEY` de imediato, o sistema entrará automaticamente em **Modo Local Resiliente**, pré-carregando 100% dos dados reais do Instituto Dagaz (turmas, modalidades, alunos e fichas) sem travar ou interromper a navegação!
+> **Nota:** Em produção, configure `SUPABASE_DB_URL` no Render; sem essa variável, o servidor não inicia. `GEMINI_API_KEY` é necessária para habilitar o OCR; sem ela, a leitura automática informa que está indisponível.
 
 ### 3.2. Instalação e Execução do Servidor
 ```bash

@@ -1,6 +1,6 @@
-# Guia de Configuração do Supabase & PostgreSQL – Esporte Dagaz
+# Guia de Configuração do Supabase & PostgreSQL – Condomínio Cultura e Esportivo
 
-Este documento orienta a equipe de infraestrutura e banco de dados na configuração do **Supabase** para o Sistema de Gestão Socioesportiva – Projeto Esporte Dagaz.
+Este documento orienta a equipe de infraestrutura e banco de dados na configuração do **Supabase** para o Sistema de Gestão Socioesportiva – Condomínio Cultura e Esportivo.
 
 ---
 
@@ -9,7 +9,7 @@ Este documento orienta a equipe de infraestrutura e banco de dados na configura�
 1. Acesse o painel oficial em [supabase.com](https://supabase.com/) e faça login.
 2. Clique em **"New Project"**.
 3. Preencha as informações:
-   - **Name**: `esporte-dagaz-prod` (ou `esporte-dagaz-dev`)
+   - **Name**: `condominio-cultura-esportivo-prod` (ou `condominio-cultura-esportivo-dev`)
    - **Database Password**: Gere uma senha forte e armazene em cofre seguro.
    - **Region**: Selecione `São Paulo (sa-east-1)` para garantir a menor latência no Brasil.
    - **Pricing Plan**: Free ou Pro conforme a demanda institucional.
@@ -49,7 +49,7 @@ No painel do Supabase, acesse **SQL Editor** no menu lateral esquerdo e execute 
 3. **Migração 3 – Sementes e Dados Oficiais Iniciais:**
    - Abra o arquivo `supabase/migrations/20260218000003_seed_data.sql`.
    - Copie o conteúdo, cole no SQL Editor e clique em **Run**.
-   - Popula as 6 modalidades oficiais do Projeto Esporte Dagaz, turmas ativas, operadores administrativos e alunos de demonstração.
+   - Insere dados iniciais de demonstração para modalidades, turmas, operadores e alunos. Não execute novamente após limpar os dados do projeto.
 
 ---
 
@@ -99,7 +99,7 @@ No painel atualizado, a string fica no botão **Connect**, no topo da página do
 1. Abra o projeto no [Dashboard do Supabase](https://supabase.com/dashboard).
 2. Clique em **Connect** no topo.
 3. Na janela **Connect to your project**, selecione **Direct Connection string** (terceiro cartão). Não escolha **Framework** ou **Server**, que mostram instruções para clientes/API.
-4. Na tela seguinte, selecione o formato **URI** e o método de conexão. Para o backend Dagaz em uma hospedagem com IPv4, use **Session pooler**. Se a hospedagem suportar IPv6, também pode usar **Direct connection**. Evite **Transaction pooler** para este servidor Node.js persistente.
+4. Na tela seguinte, selecione o formato **URI** e o método de conexão. Para o backend em uma hospedagem com IPv4, use **Session pooler**. Se a hospedagem suportar IPv6, também pode usar **Direct connection**. Evite **Transaction pooler** para este servidor Node.js persistente.
 5. Copie a string. Substitua o marcador da senha pela senha do banco definida na criação do projeto. Use a string fornecida pelo painel; não monte manualmente o endereço do pooler.
 6. Configure a URI completa em `SUPABASE_DB_URL` no `server/.env`:
 ```ini
@@ -124,7 +124,7 @@ pnpm run dev
 Você deverá ver no console de inicialização:
 ```plaintext
 [INFO] Conectado com sucesso ao banco PostgreSQL/Supabase.
-[INFO] Servidor Dagaz API rodando na porta 3001 em modo development
+[INFO] API do Condomínio Cultura e Esportivo rodando na porta 3001 em modo development
 ```
 
 Caso ocorra qualquer erro de conexão com a rede externa, o sistema alertará e ativará o **Modo Local Resiliente**, assegurando que os operadores nunca fiquem sem atendimento.

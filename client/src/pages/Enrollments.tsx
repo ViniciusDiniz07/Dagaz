@@ -89,7 +89,7 @@ export const Enrollments: React.FC<EnrollmentsProps> = ({ onNavigate }) => {
         downloadAnchor.setAttribute('href', jsonString);
         downloadAnchor.setAttribute(
           'download',
-          `matriculas_dagaz_${new Date().getFullYear()}.json`
+          `matriculas_condominio_cultura_esportivo_${new Date().getFullYear()}.json`
         );
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();

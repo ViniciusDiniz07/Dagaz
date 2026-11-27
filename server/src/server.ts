@@ -5,7 +5,7 @@ import { logger } from './utils/logger.js';
 
 async function bootstrap() {
   try {
-    logger.info('Iniciando Sistema de Gestão Socioesportiva - Esporte Dagaz...');
+    logger.info('Iniciando Sistema de Gestão Socioesportiva - Condomínio Cultura e Esportivo...');
 
     // Inicializa o banco de dados (PostgreSQL remoto ou motor resiliente local)
     await initDatabase();

@@ -1157,7 +1157,7 @@ export const StudentRegistration: React.FC<StudentRegistrationProps> = ({ onNavi
                 className="w-4 h-4 rounded text-secondary focus:ring-secondary accent-secondary mt-0.5"
               />
               <span className="font-body-sm text-[12px] text-on-surface leading-tight">
-                Autorizo expressamente o direito de uso de imagem do participante para fins institucionais, educativos e pedagógicos do Projeto Esporte Dagaz.
+                Autorizo expressamente o direito de uso de imagem do participante para fins institucionais, educativos e pedagógicos do Condomínio Cultura e Esportivo.
               </span>
             </label>
             <label className="flex items-start gap-2.5 cursor-pointer">

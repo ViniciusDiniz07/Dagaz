@@ -58,11 +58,11 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         <div className="p-space-md flex items-center justify-between bg-surface-container-low">
           <div className="flex items-center gap-space-sm">
             <img
-              alt="Projeto Esporte Dagaz Logo"
+              alt="Logotipo do Condomínio Cultura e Esportivo"
               className="h-7 w-auto object-contain"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnHMFEUdUVmRjfMIKsVPxX2mcIKs7eupASgcyMuWpVXYlRkR312TSvOswdJOxpNLvpdm_DXu44TGafWdpcpAHgCUA1XXsHnezYSABrVd9DpRK-7cLiLYgHTJ9gEKHIYTbRbTQ1wJG23Onielm2rEbGOVoxMWqEh5Hgl9pzbaFCw1boVlqKj9gpMbll5G42MKztHU6-bmDGcQmF9piGGi7O4u6jc-dApF1BoYKE9Zs"
+              src="/logo-condominio-cultura-esportivo-transparente.png"
             />
-            <span className="font-headline-sm text-headline-sm text-primary">Esporte Dagaz</span>
+            <span className="font-headline-sm text-[13px] text-primary leading-tight">Condomínio Cultura e Esportivo</span>
           </div>
           <button
             type="button"

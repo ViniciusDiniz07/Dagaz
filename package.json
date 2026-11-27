@@ -1,7 +1,7 @@
 {
   "name": "dagaz-socioesportivo",
   "version": "1.0.0",
-  "description": "Sistema de Gestão Socioesportiva - Projeto Esporte Dagaz",
+  "description": "Sistema de Gestão Socioesportiva - Condomínio Cultura e Esportivo",
   "scripts": {
     "server:dev": "npm --prefix server run dev",
     "client:dev": "npm --prefix client run dev",
@@ -17,7 +17,7 @@
     "react",
     "tailwind"
   ],
-  "author": "Equipe Projeto Esporte Dagaz",
+  "author": "Equipe Condomínio Cultura e Esportivo",
   "license": "ISC",
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

@@ -1,6 +1,6 @@
-# Guia de Configuração do Google Gemini AI – Esporte Dagaz
+# Guia de Configuração do Google Gemini AI – Condomínio Cultura e Esportivo
 
-Este documento orienta a integração do **Google Gemini AI** para a digitalização inteligente de fichas físicas de inscrição no Sistema de Gestão Socioesportiva – Projeto Esporte Dagaz.
+Este documento orienta a integração do **Google Gemini AI** para a digitalização inteligente de fichas físicas de inscrição no Sistema de Gestão Socioesportiva – Condomínio Cultura e Esportivo.
 
 ---
 
@@ -128,8 +128,6 @@ O Gemini retorna os dados na seguinte estrutura canônica validada:
 
 ---
 
-## 6. Resiliência e Fallback Local
+## 6. Disponibilidade do OCR
 
-Caso o servidor opere em ambiente sem chave de API do Gemini ou sem conexão externa:
-- O módulo OCR ativa um mecanismo de análise estruturada inteligente local, capaz de simular a extração da ficha física padrão de 2026 do Instituto Dagaz (`client/public/sample-fichas/ficha_exemplo_dagaz_2026.jpg`).
-- Essa capacidade assegura que demonstrações, treinamentos da equipe e testes de interface possam ser conduzidos de forma ininterrupta.
+O OCR depende da variável `GEMINI_API_KEY` configurada no ambiente do backend. Sem essa chave, a API informa que a leitura automática está indisponível; não há extração simulada.

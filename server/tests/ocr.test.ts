@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 describe('Módulo de Digitalização e IA com Google Gemini', () => {
-  // Exemplo de JSON extraído fielmente pelo Gemini a partir da ficha física Dagaz 2026
+  // Exemplo de JSON extraído pelo Gemini a partir de uma ficha física.
   const mockGeminiOutput = {
     modalidades_selecionadas: ['Judô', 'Capoeira'],
     aluno: {
@@ -88,7 +88,7 @@ describe('Módulo de Digitalização e IA com Google Gemini', () => {
     ],
   };
 
-  it('deve possuir todos os campos exigidos pela ficha de inscrição Dagaz 2026', () => {
+  it('deve possuir os campos exigidos pela ficha de inscrição', () => {
     expect(mockGeminiOutput.aluno.nome).toBeTruthy();
     expect(mockGeminiOutput.aluno.data_nascimento).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(mockGeminiOutput.responsavel.nome).toBeTruthy();

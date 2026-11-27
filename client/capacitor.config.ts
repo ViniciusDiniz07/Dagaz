@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'org.esportedagaz.gestao',
-  appName: 'Esporte Dagaz',
+  appName: 'Condomínio Cultura e Esportivo',
   webDir: 'dist',
 };
 

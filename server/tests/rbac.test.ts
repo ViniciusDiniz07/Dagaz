@@ -53,7 +53,7 @@ describe('Middleware RBAC (Role-Based Access Control)', () => {
     const { req, res, next } = createMockReqRes({
       userId: 'user-2',
       role: 'atendente',
-      nome: 'Atendente Dagaz',
+      nome: 'Atendente do Condomínio',
     });
     const middleware = requireRole('admin', 'coordenador', 'atendente');
 

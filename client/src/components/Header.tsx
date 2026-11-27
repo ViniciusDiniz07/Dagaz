@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({
   onOpenDrawer,
-  title = 'Esporte Dagaz',
+  title = 'Condomínio Cultura e Esportivo',
   showBack = false,
   onBack,
 }) => {
@@ -42,12 +42,12 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="flex items-center gap-2">
             <img
-              alt="Projeto Esporte Dagaz Logo"
+              alt="Logotipo do Condomínio Cultura e Esportivo"
               className="h-8 w-auto object-contain"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnHMFEUdUVmRjfMIKsVPxX2mcIKs7eupASgcyMuWpVXYlRkR312TSvOswdJOxpNLvpdm_DXu44TGafWdpcpAHgCUA1XXsHnezYSABrVd9DpRK-7cLiLYgHTJ9gEKHIYTbRbTQ1wJG23Onielm2rEbGOVoxMWqEh5Hgl9pzbaFCw1boVlqKj9gpMbll5G42MKztHU6-bmDGcQmF9piGGi7O4u6jc-dApF1BoYKE9Zs"
+              src="/logo-condominio-cultura-esportivo-transparente.png"
             />
             <div className="flex flex-col">
-              <span className="font-headline-sm text-headline-sm text-primary leading-tight tracking-tight">
+              <span className="font-headline-sm text-primary leading-tight tracking-tight max-w-[150px] text-[12px] sm:max-w-none sm:text-[16px]">
                 {title}
               </span>
               <span className="font-label-sm text-label-sm text-on-surface-variant font-medium leading-none">

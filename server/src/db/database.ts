@@ -129,7 +129,7 @@ async function populateLocalSeedData() {
   memoryDb.users = [
     {
       id: '00000000-0000-0000-0000-000000000001',
-      nome: 'Administradora Dagaz',
+      nome: 'Administradora do Condomínio',
       email: 'admin@esportedagaz.org.br',
       password_hash: hashedPassword,
       role: 'admin',
@@ -177,9 +177,9 @@ async function populateLocalSeedData() {
 
   // Turmas
   memoryDb.classes = [
-    { id: '20000000-0000-0000-0000-000000000001', sports_id: '10000000-0000-0000-0000-000000000003', nome: 'Turma Infantil II', faixa_etaria: 'Sub-11 / Sub-13', dias_semana: 'Terça e Quinta', horario: '14:00 - 15:30', turno: 'tarde', local: 'Núcleo Central Dagaz', capacidade: 30, ativo: true },
-    { id: '20000000-0000-0000-0000-000000000002', sports_id: '10000000-0000-0000-0000-000000000005', nome: 'Iniciação Sub-11', faixa_etaria: 'Sub-11', dias_semana: 'Sábados', horario: '09:00 - 10:45', turno: 'sabado', local: 'Quadra Dagaz', capacidade: 25, ativo: true },
-    { id: '20000000-0000-0000-0000-000000000003', sports_id: '10000000-0000-0000-0000-000000000004', nome: 'Turma Juvenil B', faixa_etaria: 'Sub-15', dias_semana: 'Quarta e Sexta', horario: '10:15 - 11:45', turno: 'manha', local: 'Quadra Dagaz', capacidade: 20, ativo: true },
+    { id: '20000000-0000-0000-0000-000000000001', sports_id: '10000000-0000-0000-0000-000000000003', nome: 'Turma Infantil II', faixa_etaria: 'Sub-11 / Sub-13', dias_semana: 'Terça e Quinta', horario: '14:00 - 15:30', turno: 'tarde', local: 'Núcleo Central', capacidade: 30, ativo: true },
+    { id: '20000000-0000-0000-0000-000000000002', sports_id: '10000000-0000-0000-0000-000000000005', nome: 'Iniciação Sub-11', faixa_etaria: 'Sub-11', dias_semana: 'Sábados', horario: '09:00 - 10:45', turno: 'sabado', local: 'Quadra do Condomínio', capacidade: 25, ativo: true },
+    { id: '20000000-0000-0000-0000-000000000003', sports_id: '10000000-0000-0000-0000-000000000004', nome: 'Turma Juvenil B', faixa_etaria: 'Sub-15', dias_semana: 'Quarta e Sexta', horario: '10:15 - 11:45', turno: 'manha', local: 'Quadra do Condomínio', capacidade: 20, ativo: true },
     { id: '20000000-0000-0000-0000-000000000004', sports_id: '10000000-0000-0000-0000-000000000001', nome: 'Capoeira Regional Misto', faixa_etaria: 'Misto Geral', dias_semana: 'Terça e Quinta', horario: '09:00 - 10:30', turno: 'manha', local: 'Galpão Cultural', capacidade: 30, ativo: true },
     { id: '20000000-0000-0000-0000-000000000005', sports_id: '10000000-0000-0000-0000-000000000002', nome: 'Treino Funcional Jovens', faixa_etaria: 'Sub-17', dias_semana: 'Segunda e Sexta', horario: '16:30 - 17:30', turno: 'tarde', local: 'Espaço Fitness', capacidade: 25, ativo: true },
     { id: '20000000-0000-0000-0000-000000000006', sports_id: '10000000-0000-0000-0000-000000000006', nome: 'Futevôlei Comunitário', faixa_etaria: 'Sub-15 a Adulto', dias_semana: 'Sábados', horario: '14:00 - 15:30', turno: 'sabado', local: 'Arena de Areia', capacidade: 20, ativo: true },
